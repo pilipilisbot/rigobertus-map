@@ -5,6 +5,8 @@ const list = document.getElementById('list');
 const count = document.getElementById('count');
 
 let places = [];
+let map;
+let markers = [];
 
 function uniq(values){return [...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ca'))}
 
@@ -40,16 +42,43 @@ function card(p){
   return el;
 }
 
+function initMap(){
+  map = L.map('map').setView([41.9831, 2.8249], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+}
+
+function renderMap(filtered){
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+
+  const withCoords = filtered.filter(p => Number.isFinite(p.lat) && Number.isFinite(p.lng));
+  withCoords.forEach(p => {
+    const marker = L.marker([p.lat, p.lng]).addTo(map);
+    marker.bindPopup(`<strong>${p.name}</strong><br>${p.city || ''}<br><a href="${p.mapsUrl}" target="_blank">Google Maps</a>`);
+    markers.push(marker);
+  });
+
+  if(withCoords.length){
+    const bounds = L.latLngBounds(withCoords.map(p => [p.lat, p.lng]));
+    map.fitBounds(bounds, { padding: [20,20], maxZoom: 15 });
+  }
+}
+
 function render(){
   const filtered = places.filter(matches);
   count.textContent = `${filtered.length} llocs`;
   list.innerHTML='';
   filtered.forEach(p=>list.appendChild(card(p)));
+  renderMap(filtered);
 }
 
 async function init(){
   const res = await fetch('places.json');
   places = await res.json();
+  initMap();
   fillFilters();
   [q, city, category].forEach(el=>el.addEventListener('input', render));
   render();
