@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rigobertus Map</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Rigobertus 🕺 Map</h1>
+    <p>Llista de llocs (source of truth: <code>places.json</code>)</p>
+  </header>
+
+  <section class="controls">
+    <input id="q" type="search" placeholder="Cerca per nom, ciutat, tag..." />
+    <select id="city"><option value="">Totes les ciutats</option></select>
+    <select id="category"><option value="">Totes les categories</option></select>
+  </section>
+
+  <main>
+    <p id="count"></p>
+    <div id="list" class="grid"></div>
+  </main>
+
+  <footer>
+    <small>Fet amb ❤️ a GitHub Pages</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+[
+  {
+    "id": "el-celler-de-can-roca",
+    "name": "El Celler de Can Roca",
+    "lat": 41.9836,
+    "lng": 2.8214,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": ["top", "sopar"],
+    "mapsUrl": "https://maps.google.com/?q=41.9836,2.8214",
+    "notes": "Exemple inicial"
+  }
+]
