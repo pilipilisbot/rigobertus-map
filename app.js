@@ -12,6 +12,23 @@ function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
 }
 
+function safeText(value, fallback = '-') {
+  if (value === null || value === undefined) return fallback;
+  const text = String(value).trim();
+  return text || fallback;
+}
+
+function safeUrl(value) {
+  if (!value) return '#';
+  try {
+    const parsed = new URL(String(value));
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.toString();
+  } catch (_) {
+    // noop
+  }
+  return '#';
+}
+
 function fillFilters() {
   for (const c of uniq(places.map((p) => p.city))) {
     const o = document.createElement('option');
@@ -36,28 +53,80 @@ function matches(p) {
   return true;
 }
 
+function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
+  const link = document.createElement('a');
+  link.href = safeUrl(url);
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = label;
+
+  if (link.href.endsWith('/#')) {
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    link.textContent = 'Enllaç no disponible';
+  }
+
+  return link;
+}
+
 function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
-  el.innerHTML = `
-    <h3>${p.name}</h3>
-    <div class="meta">${p.city || '-'} · ${p.category || '-'}</div>
-    <div class="meta">${p.lat ?? '-'}, ${p.lng ?? '-'}</div>
-    <div class="links"><a href="${p.mapsUrl}" target="_blank" rel="noopener">Obrir a Google Maps ↗</a></div>
-    ${p.notes ? `<p>${p.notes}</p>` : ''}
-    <div class="tags">${(p.tags || []).map((t) => `<span class="tag">#${t}</span>`).join('')}</div>
-  `;
+
+  const title = document.createElement('h3');
+  title.textContent = safeText(p.name, 'Sense nom');
+  el.appendChild(title);
+
+  const metaMain = document.createElement('div');
+  metaMain.className = 'meta';
+  metaMain.textContent = `${safeText(p.city)} · ${safeText(p.category)}`;
+  el.appendChild(metaMain);
+
+  const metaCoords = document.createElement('div');
+  metaCoords.className = 'meta';
+  metaCoords.textContent = `${p.lat ?? '-'}, ${p.lng ?? '-'}`;
+  el.appendChild(metaCoords);
+
+  const links = document.createElement('div');
+  links.className = 'links';
+  links.appendChild(buildMapsLink(p.mapsUrl));
+  el.appendChild(links);
+
+  if (p.notes) {
+    const notes = document.createElement('p');
+    notes.textContent = safeText(p.notes, '');
+    el.appendChild(notes);
+  }
+
+  const tags = document.createElement('div');
+  tags.className = 'tags';
+  for (const tagValue of p.tags || []) {
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = `#${safeText(tagValue, '')}`;
+    tags.appendChild(tag);
+  }
+  el.appendChild(tags);
+
   return el;
 }
 
-function createPopupHtml(p) {
-  return `
-    <div class="popup">
-      <strong>${p.name}</strong><br>
-      ${p.city || ''}<br>
-      <a href="${p.mapsUrl}" target="_blank" rel="noopener">Google Maps</a>
-    </div>
-  `;
+function createPopupNode(p) {
+  const container = document.createElement('div');
+  container.className = 'popup';
+
+  const title = document.createElement('strong');
+  title.textContent = safeText(p.name, 'Sense nom');
+  container.appendChild(title);
+  container.appendChild(document.createElement('br'));
+
+  const cityText = document.createTextNode(safeText(p.city, ''));
+  container.appendChild(cityText);
+  container.appendChild(document.createElement('br'));
+
+  container.appendChild(buildMapsLink(p.mapsUrl, 'Google Maps'));
+
+  return container;
 }
 
 function clearMarkers() {
@@ -92,7 +161,7 @@ function renderMap(filtered) {
   if (!withCoords.length) return;
 
   for (const p of withCoords) {
-    const popup = new maplibregl.Popup({ offset: 20 }).setHTML(createPopupHtml(p));
+    const popup = new maplibregl.Popup({ offset: 20 }).setDOMContent(createPopupNode(p));
     const marker = new maplibregl.Marker({ color: '#ff7a59' })
       .setLngLat([p.lng, p.lat])
       .setPopup(popup)
