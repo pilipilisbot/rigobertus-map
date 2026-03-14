@@ -1,6 +1,5 @@
 const q = document.getElementById('q');
 const city = document.getElementById('city');
-const category = document.getElementById('category');
 const minRating = document.getElementById('minRating');
 const list = document.getElementById('list');
 const count = document.getElementById('count');
@@ -60,7 +59,6 @@ function setStatus(message = '', kind = 'info') {
 
 function clearFilters() {
   city.innerHTML = '<option value="">Totes les ciutats</option>';
-  category.innerHTML = '<option value="">Totes les categories</option>';
 }
 
 function fillFilters() {
@@ -70,20 +68,13 @@ function fillFilters() {
     o.textContent = c;
     city.appendChild(o);
   }
-  for (const c of uniq(places.map((p) => p.category))) {
-    const o = document.createElement('option');
-    o.value = c;
-    o.textContent = c;
-    category.appendChild(o);
-  }
 }
 
 function matches(p) {
   const text = (q.value || '').trim().toLowerCase();
-  const hay = [p.name, p.city, p.category, (p.tags || []).join(' '), p.notes || ''].join(' ').toLowerCase();
+  const hay = [p.name, p.city, (p.tags || []).join(' '), p.notes || ''].join(' ').toLowerCase();
   if (text && !hay.includes(text)) return false;
   if (city.value && p.city !== city.value) return false;
-  if (category.value && p.category !== category.value) return false;
 
   const min = Number(minRating.value);
   const rating = normalizeRating(p.rating);
@@ -151,7 +142,7 @@ function card(p) {
 
   const metaMain = document.createElement('div');
   metaMain.className = 'meta';
-  metaMain.textContent = `${safeText(p.city)} · ${safeText(p.category)}`;
+  metaMain.textContent = `${safeText(p.city)}`;
   el.appendChild(metaMain);
 
   el.appendChild(buildRatingMeta(p));
@@ -305,7 +296,7 @@ async function init() {
   initMap();
   map.on('load', () => renderMap(places));
 
-  [q, city, category, minRating].forEach((el) => el.addEventListener('input', render));
+  [q, city, minRating].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
