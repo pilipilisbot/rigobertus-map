@@ -8,6 +8,7 @@ Viewer estàtic de llocs per GitHub Pages.
 - Aquesta web només llegeix i mostra
 - El mapa usa MapLibre GL amb vector tiles (OpenFreeMap style `positron`)
 - El render de dades de `places.json` evita `innerHTML` amb camps d'usuari per minimitzar risc XSS
+- Si falla la càrrega de `places.json`, la UI mostra error i ofereix retry
 - Els canvis es fan via commit/PR
 
 ## Esquema mínim (`places.json`)
