@@ -1,6 +1,7 @@
 const q = document.getElementById('q');
 const city = document.getElementById('city');
 const category = document.getElementById('category');
+const minRating = document.getElementById('minRating');
 const list = document.getElementById('list');
 const count = document.getElementById('count');
 const status = document.getElementById('status');
@@ -29,6 +30,27 @@ function safeUrl(value) {
     // noop
   }
   return '#';
+}
+
+function normalizeRating(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return null;
+  return Math.max(0, Math.min(5, n));
+}
+
+function stars(value) {
+  const rating = normalizeRating(value);
+  if (rating === null) return '—';
+  const rounded = Math.round(rating * 2) / 2;
+  const full = Math.floor(rounded);
+  const half = rounded % 1 !== 0;
+  const empty = 5 - full - (half ? 1 : 0);
+  return `${'★'.repeat(full)}${half ? '⯪' : ''}${'☆'.repeat(empty)}`;
+}
+
+function toSafePhotos(photos) {
+  if (!Array.isArray(photos)) return [];
+  return photos.map((photo) => safeUrl(photo)).filter((url) => url !== '#');
 }
 
 function setStatus(message = '', kind = 'info') {
@@ -62,6 +84,11 @@ function matches(p) {
   if (text && !hay.includes(text)) return false;
   if (city.value && p.city !== city.value) return false;
   if (category.value && p.category !== category.value) return false;
+
+  const min = Number(minRating.value);
+  const rating = normalizeRating(p.rating);
+  if (minRating.value && (rating === null || rating < min)) return false;
+
   return true;
 }
 
@@ -81,6 +108,39 @@ function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
   return link;
 }
 
+function buildRatingMeta(p) {
+  const rating = normalizeRating(p.rating);
+  const meta = document.createElement('div');
+  meta.className = 'rating';
+
+  if (rating === null) {
+    meta.textContent = 'Sense valoracions';
+    return meta;
+  }
+
+  const reviews = Number.isFinite(Number(p.reviewCount)) ? ` (${p.reviewCount})` : '';
+  meta.textContent = `${stars(rating)} ${rating.toFixed(1)}${reviews}`;
+  return meta;
+}
+
+function buildPhotos(p) {
+  const photos = toSafePhotos(p.photos);
+  if (!photos.length) return null;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'photos';
+
+  for (const [index, src] of photos.slice(0, 4).entries()) {
+    const image = document.createElement('img');
+    image.src = src;
+    image.loading = 'lazy';
+    image.alt = `Foto de ${safeText(p.name, 'lloc')} ${index + 1}`;
+    wrap.appendChild(image);
+  }
+
+  return wrap;
+}
+
 function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
@@ -94,10 +154,15 @@ function card(p) {
   metaMain.textContent = `${safeText(p.city)} · ${safeText(p.category)}`;
   el.appendChild(metaMain);
 
+  el.appendChild(buildRatingMeta(p));
+
   const metaCoords = document.createElement('div');
   metaCoords.className = 'meta';
   metaCoords.textContent = `${p.lat ?? '-'}, ${p.lng ?? '-'}`;
   el.appendChild(metaCoords);
+
+  const photoStrip = buildPhotos(p);
+  if (photoStrip) el.appendChild(photoStrip);
 
   const links = document.createElement('div');
   links.className = 'links';
@@ -135,6 +200,12 @@ function createPopupNode(p) {
   const cityText = document.createTextNode(safeText(p.city, ''));
   container.appendChild(cityText);
   container.appendChild(document.createElement('br'));
+
+  const rating = normalizeRating(p.rating);
+  if (rating !== null) {
+    container.appendChild(document.createTextNode(`${stars(rating)} ${rating.toFixed(1)}`));
+    container.appendChild(document.createElement('br'));
+  }
 
   container.appendChild(buildMapsLink(p.mapsUrl, 'Google Maps'));
 
@@ -234,7 +305,7 @@ async function init() {
   initMap();
   map.on('load', () => renderMap(places));
 
-  [q, city, category].forEach((el) => el.addEventListener('input', render));
+  [q, city, category, minRating].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
