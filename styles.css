@@ -9,6 +9,9 @@ header h1{margin:.2rem 0}
 .card{background:#141b33;border:1px solid #2d365c;border-radius:.8rem;padding:.8rem}
 .card h3{margin:.1rem 0 .4rem}
 .meta{opacity:.8;font-size:.9rem}
+.rating{margin:.35rem 0;color:#ffd36b;font-weight:600;font-size:.92rem}
+.photos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.35rem;margin:.55rem 0}
+.photos img{width:100%;height:74px;object-fit:cover;border-radius:.5rem;border:1px solid #2d365c;background:#0f1630}
 .tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem}
 .tag{font-size:.75rem;padding:.2rem .45rem;border:1px solid #3c4a78;border-radius:999px;opacity:.9}
 .links a{color:#9fc0ff;text-decoration:none}
@@ -37,6 +40,8 @@ select:focus-visible{
   #map{height:52vh;min-height:280px;max-height:420px;margin:.4rem 0 .8rem}
   .grid{grid-template-columns:1fr;gap:.7rem}
   .card{padding:.9rem}
+  .photos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .photos img{height:90px}
 }
 
 @media (max-width: 430px){
