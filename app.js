@@ -3,6 +3,8 @@ const city = document.getElementById('city');
 const category = document.getElementById('category');
 const list = document.getElementById('list');
 const count = document.getElementById('count');
+const status = document.getElementById('status');
+const retry = document.getElementById('retry');
 
 let places = [];
 let map;
@@ -27,6 +29,16 @@ function safeUrl(value) {
     // noop
   }
   return '#';
+}
+
+function setStatus(message = '', kind = 'info') {
+  status.textContent = message;
+  status.classList.toggle('error', kind === 'error');
+}
+
+function clearFilters() {
+  city.innerHTML = '<option value="">Totes les ciutats</option>';
+  category.innerHTML = '<option value="">Totes les categories</option>';
 }
 
 function fillFilters() {
@@ -197,16 +209,47 @@ function render() {
   renderMap(filtered);
 }
 
-async function init() {
-  const res = await fetch('places.json');
-  places = await res.json();
+async function loadPlaces() {
+  setStatus('Carregant llocs...');
+  retry.hidden = true;
 
+  const res = await fetch('places.json', { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`No s'ha pogut carregar places.json (${res.status})`);
+  }
+
+  const data = await res.json();
+  if (!Array.isArray(data)) {
+    throw new Error("places.json no té el format esperat (array)");
+  }
+
+  places = data;
+  clearFilters();
+  fillFilters();
+  render();
+  setStatus('');
+}
+
+async function init() {
   initMap();
   map.on('load', () => renderMap(places));
 
-  fillFilters();
   [q, city, category].forEach((el) => el.addEventListener('input', render));
-  render();
+  retry.addEventListener('click', () => {
+    loadPlaces().catch((error) => {
+      setStatus(error.message || 'Error carregant les dades.', 'error');
+      retry.hidden = false;
+    });
+  });
+
+  try {
+    await loadPlaces();
+  } catch (error) {
+    list.innerHTML = '';
+    count.textContent = '0 llocs';
+    setStatus(error.message || 'Error carregant les dades.', 'error');
+    retry.hidden = false;
+  }
 }
 
 init();

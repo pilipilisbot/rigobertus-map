@@ -16,4 +16,8 @@ header h1{margin:.2rem 0}
 .maplibregl-popup-tip{border-top-color:#2d365c !important}
 .maplibregl-ctrl-group{border:none !important;border-radius:.6rem !important;overflow:hidden}
 .maplibregl-ctrl button{background:#141b33 !important;color:#e8ecff !important}
+#status{min-height:1.2rem;font-size:.95rem;color:#c7d4ff}
+#status.error{color:#ff8e8e}
+#retry{padding:.55rem .85rem;border-radius:.6rem;border:1px solid #3d4f84;background:#19244a;color:#e8ecff;cursor:pointer;margin:.4rem 0 1rem}
+#retry:hover{background:#223060}
 footer{margin:1rem 0;opacity:.7}
