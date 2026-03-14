@@ -6,6 +6,7 @@ Viewer estàtic de llocs per GitHub Pages.
 
 - Les dades viuen a `places.json`
 - Aquesta web només llegeix i mostra
+- El mapa usa MapLibre GL amb vector tiles (OpenFreeMap style `positron`)
 - Els canvis es fan via commit/PR
 
 ## Esquema mínim (`places.json`)
