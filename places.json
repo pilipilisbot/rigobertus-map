@@ -9,8 +9,9 @@
     "tags": ["top", "sopar"],
     "mapsUrl": "https://maps.google.com/?q=41.9836,2.8214",
     "notes": "Exemple inicial",
-    "rating": 4.8,
-    "reviewCount": 1274,
+    "externalRating": 4.8,
+    "externalReviewCount": 1274,
+    "rigobertusRating": 4.5,
     "photos": [
       "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",

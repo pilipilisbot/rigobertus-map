@@ -77,7 +77,7 @@ function matches(p) {
   if (city.value && p.city !== city.value) return false;
 
   const min = Number(minRating.value);
-  const rating = normalizeRating(p.rating);
+  const rating = getFilterRating(p);
   if (minRating.value && (rating === null || rating < min)) return false;
 
   return true;
@@ -295,6 +295,43 @@ async function loadPlaces() {
 async function init() {
   initMap();
   map.on('load', () => renderMap(places));
+
+  [q, city, minRating].forEach((el) => el.addEventListener('input', render));
+  retry.addEventListener('click', () => {
+    loadPlaces().catch((error) => {
+      setStatus(error.message || 'Error carregant les dades.', 'error');
+      retry.hidden = false;
+    });
+  });
+
+  try {
+    await loadPlaces();
+  } catch (error) {
+    list.innerHTML = '';
+    count.textContent = '0 llocs';
+    setStatus(error.message || 'Error carregant les dades.', 'error');
+    retry.hidden = false;
+  }
+}
+
+init();
+ 'error');
+      retry.hidden = false;
+    });
+  });
+
+  try {
+    await loadPlaces();
+  } catch (error) {
+    list.innerHTML = '';
+    count.textContent = '0 llocs';
+    setStatus(error.message || 'Error carregant les dades.', 'error');
+    retry.hidden = false;
+  }
+}
+
+init();
+ces));
 
   [q, city, minRating].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
