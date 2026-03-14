@@ -6,7 +6,10 @@
     "lng": 2.8214,
     "city": "Girona",
     "category": "restaurant",
-    "tags": ["top", "sopar"],
+    "tags": [
+      "top",
+      "sopar"
+    ],
     "mapsUrl": "https://maps.google.com/?q=41.9836,2.8214",
     "notes": "Exemple inicial",
     "externalRating": 4.8,
@@ -17,5 +20,23 @@
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
     ]
+  },
+  {
+    "id": "cafe-le-bistrot-girona",
+    "name": "Cafè Le Bistrot",
+    "lat": 41.9848558,
+    "lng": 2.8261427,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "barri-vell",
+      "sopar"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9848558,2.8261427",
+    "notes": "Afegit des del grup: visita del dijous 12 de març.",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": []
   }
 ]
