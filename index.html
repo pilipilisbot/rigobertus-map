@@ -13,9 +13,14 @@
     <p>Llista de llocs (source of truth: <code>places.json</code>)</p>
   </header>
 
-  <section class="controls">
-    <input id="q" type="search" placeholder="Cerca per nom, ciutat, tag..." />
+  <section class="controls" aria-label="Filtres de cerca">
+    <label class="sr-only" for="q">Cerca per text</label>
+    <input id="q" type="search" placeholder="Cerca per nom, ciutat, tag..." autocomplete="off" />
+
+    <label class="sr-only" for="city">Filtra per ciutat</label>
     <select id="city"><option value="">Totes les ciutats</option></select>
+
+    <label class="sr-only" for="category">Filtra per categoria</label>
     <select id="category"><option value="">Totes les categories</option></select>
   </section>
 
@@ -28,14 +33,6 @@
   </main>
 
   <footer>
-    <small>Fet amb ❤️ a GitHub Pages</small>
-  </footer>
-
-  <script src="https://unpkg.com/maplibre-gl@5.3.1/dist/maplibre-gl.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
-ter>
     <small>Fet amb ❤️ a GitHub Pages</small>
   </footer>
 
