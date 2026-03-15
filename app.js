@@ -37,6 +37,10 @@ function normalizeRating(value) {
   return Math.max(0, Math.min(5, n));
 }
 
+function getDisplayRating(place) {
+  return normalizeRating(place.rigobertusRating ?? place.externalRating);
+}
+
 function stars(value) {
   const rating = normalizeRating(value);
   if (rating === null) return '—';
@@ -77,7 +81,7 @@ function matches(p) {
   if (city.value && p.city !== city.value) return false;
 
   const min = Number(minRating.value);
-  const rating = getFilterRating(p);
+  const rating = getDisplayRating(p);
   if (minRating.value && (rating === null || rating < min)) return false;
 
   return true;
@@ -100,7 +104,7 @@ function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
 }
 
 function buildRatingMeta(p) {
-  const rating = normalizeRating(p.rating);
+  const rating = getDisplayRating(p);
   const meta = document.createElement('div');
   meta.className = 'rating';
 
@@ -109,7 +113,7 @@ function buildRatingMeta(p) {
     return meta;
   }
 
-  const reviews = Number.isFinite(Number(p.reviewCount)) ? ` (${p.reviewCount})` : '';
+  const reviews = Number.isFinite(Number(p.externalReviewCount)) ? ` (${p.externalReviewCount})` : '';
   meta.textContent = `${stars(rating)} ${rating.toFixed(1)}${reviews}`;
   return meta;
 }
@@ -188,11 +192,10 @@ function createPopupNode(p) {
   container.appendChild(title);
   container.appendChild(document.createElement('br'));
 
-  const cityText = document.createTextNode(safeText(p.city, ''));
-  container.appendChild(cityText);
+  container.appendChild(document.createTextNode(safeText(p.city, '')));
   container.appendChild(document.createElement('br'));
 
-  const rating = normalizeRating(p.rating);
+  const rating = getDisplayRating(p);
   if (rating !== null) {
     container.appendChild(document.createTextNode(`${stars(rating)} ${rating.toFixed(1)}`));
     container.appendChild(document.createElement('br'));
@@ -204,9 +207,7 @@ function createPopupNode(p) {
 }
 
 function clearMarkers() {
-  for (const marker of markers) {
-    marker.remove();
-  }
+  for (const marker of markers) marker.remove();
   markers = [];
 }
 
@@ -217,13 +218,11 @@ function initMap() {
     center: [2.8249, 41.9831],
     zoom: 12,
     attributionControl: true,
-    antialias: true
+    antialias: true,
   });
 
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
-
-  const resize = () => map.resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => map.resize());
 }
 
 function renderMap(filtered) {
@@ -245,22 +244,13 @@ function renderMap(filtered) {
   }
 
   if (withCoords.length === 1) {
-    map.easeTo({
-      center: [withCoords[0].lng, withCoords[0].lat],
-      zoom: 14,
-      duration: 700
-    });
+    map.easeTo({ center: [withCoords[0].lng, withCoords[0].lat], zoom: 14, duration: 700 });
     return;
   }
 
   const bounds = new maplibregl.LngLatBounds();
   for (const p of withCoords) bounds.extend([p.lng, p.lat]);
-
-  map.fitBounds(bounds, {
-    padding: 50,
-    maxZoom: 15,
-    duration: 700
-  });
+  map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 700 });
 }
 
 function render() {
@@ -276,14 +266,10 @@ async function loadPlaces() {
   retry.hidden = true;
 
   const res = await fetch('places.json', { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`No s'ha pogut carregar places.json (${res.status})`);
-  }
+  if (!res.ok) throw new Error(`No s'ha pogut carregar places.json (${res.status})`);
 
   const data = await res.json();
-  if (!Array.isArray(data)) {
-    throw new Error("places.json no té el format esperat (array)");
-  }
+  if (!Array.isArray(data)) throw new Error("places.json no té el format esperat (array)");
 
   places = data;
   clearFilters();
@@ -295,43 +281,6 @@ async function loadPlaces() {
 async function init() {
   initMap();
   map.on('load', () => renderMap(places));
-
-  [q, city, minRating].forEach((el) => el.addEventListener('input', render));
-  retry.addEventListener('click', () => {
-    loadPlaces().catch((error) => {
-      setStatus(error.message || 'Error carregant les dades.', 'error');
-      retry.hidden = false;
-    });
-  });
-
-  try {
-    await loadPlaces();
-  } catch (error) {
-    list.innerHTML = '';
-    count.textContent = '0 llocs';
-    setStatus(error.message || 'Error carregant les dades.', 'error');
-    retry.hidden = false;
-  }
-}
-
-init();
- 'error');
-      retry.hidden = false;
-    });
-  });
-
-  try {
-    await loadPlaces();
-  } catch (error) {
-    list.innerHTML = '';
-    count.textContent = '0 llocs';
-    setStatus(error.message || 'Error carregant les dades.', 'error');
-    retry.hidden = false;
-  }
-}
-
-init();
-ces));
 
   [q, city, minRating].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {

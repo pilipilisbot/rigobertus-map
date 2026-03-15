@@ -1,6 +1,6 @@
 # Rigobertus Map
 
-Viewer estàtic de llocs per GitHub Pages.
+Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
 
 ## Com funciona
 
