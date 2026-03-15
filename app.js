@@ -21,7 +21,7 @@ function safeText(value, fallback = '-') {
   return text || fallback;
 }
 
-function safeUrl(value) {
+function safeHttpUrl(value) {
   if (!value) return '#';
   try {
     const parsed = new URL(String(value));
@@ -29,6 +29,23 @@ function safeUrl(value) {
   } catch (_) {
     // noop
   }
+  return '#';
+}
+
+function safePhotoUrl(value) {
+  if (!value) return '#';
+  const raw = String(value).trim();
+  if (!raw) return '#';
+
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    return safeHttpUrl(raw);
+  }
+
+  // Allow workspace-local static asset paths (e.g. photos/bistrot/01.jpg)
+  if (/^[a-zA-Z0-9._\-/]+$/.test(raw) && !raw.startsWith('//')) {
+    return raw;
+  }
+
   return '#';
 }
 
@@ -54,7 +71,7 @@ function stars(value) {
 
 function toSafePhotos(photos) {
   if (!Array.isArray(photos)) return [];
-  return photos.map((photo) => safeUrl(photo)).filter((url) => url !== '#');
+  return photos.map((photo) => safePhotoUrl(photo)).filter((url) => url !== '#');
 }
 
 function setStatus(message = '', kind = 'info') {
@@ -90,7 +107,7 @@ function matches(p) {
 
 function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
   const link = document.createElement('a');
-  link.href = safeUrl(url);
+  link.href = safeHttpUrl(url);
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   link.textContent = label;
@@ -283,7 +300,10 @@ async function loadBuildInfo() {
   if (!buildInfo) return;
 
   try {
-    const res = await fetch('build-info.json', { cache: 'no-store' });
+    let res = await fetch('/build-info.json', { cache: 'no-store' });
+    if (!res.ok) {
+      res = await fetch(`build-info.json?t=${Date.now()}`, { cache: 'no-store' });
+    }
     if (!res.ok) throw new Error('build-info not found');
 
     const data = await res.json();
