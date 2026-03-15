@@ -74,5 +74,26 @@
     "photos": [],
     "status": "visited",
     "visitedAt": "2026-03-15"
+  },
+  {
+    "id": "teke-tumateke-taco-bar",
+    "name": "Teke-Tumateke Taco Bar",
+    "lat": null,
+    "lng": null,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "tacos",
+      "pendent",
+      "sopar"
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Teke-Tumateke+Taco+Bar+Girona",
+    "notes": "Pendent d'anar-hi (proposta del grup).",
+    "status": "pending",
+    "planned": true,
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": []
   }
 ]
