@@ -44,9 +44,10 @@ function safePhotoUrl(value) {
     return safeHttpUrl(raw);
   }
 
-  // Allow workspace-local static asset paths (e.g. photos/bistrot/01.jpg)
+  // Allow local static asset paths (e.g. photos/bistrot/01.jpg)
   if (/^[a-zA-Z0-9._\-/]+$/.test(raw) && !raw.startsWith('//')) {
-    return raw;
+    const normalized = raw.startsWith('/') ? raw : `/${raw}`;
+    return new URL(normalized, window.location.origin).toString();
   }
 
   return '#';
