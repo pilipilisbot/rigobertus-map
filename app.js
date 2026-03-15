@@ -224,6 +224,7 @@ function buildPhotos(p) {
 function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
+  el.id = `place-${safeText(p.id, '').replace(/[^a-zA-Z0-9-_]/g, '')}`;
 
   const title = document.createElement('h3');
   title.textContent = safeText(p.name, 'Sense nom');
@@ -284,6 +285,25 @@ function createPopupNode(p) {
   if (rating !== null) {
     container.appendChild(document.createTextNode(`${stars(rating)} ${rating.toFixed(1)}`));
     container.appendChild(document.createElement('br'));
+  }
+
+  const safeId = safeText(p.id, '').replace(/[^a-zA-Z0-9-_]/g, '');
+  if (safeId) {
+    const internalLink = document.createElement('a');
+    internalLink.href = `#place-${safeId}`;
+    internalLink.textContent = 'Veure fitxa';
+    internalLink.addEventListener('click', () => {
+      setTimeout(() => {
+        const target = document.getElementById(`place-${safeId}`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('card-highlight');
+          setTimeout(() => target.classList.remove('card-highlight'), 1200);
+        }
+      }, 0);
+    });
+    container.appendChild(internalLink);
+    container.appendChild(document.createTextNode(' · '));
   }
 
   container.appendChild(buildMapsLink(p.mapsUrl, 'Google Maps'));
@@ -394,17 +414,16 @@ async function init() {
   if (imageModalPrev) imageModalPrev.addEventListener('click', () => stepImageModal(-1));
   if (imageModalNext) imageModalNext.addEventListener('click', () => stepImageModal(1));
 
-  if (imageModalImg) {
-    imageModalImg.addEventListener('click', (event) => {
-      const rect = imageModalImg.getBoundingClientRect();
-      const isLeft = event.clientX < rect.left + rect.width / 2;
-      stepImageModal(isLeft ? -1 : 1);
-    });
-  }
-
   if (imageModal) {
     imageModal.addEventListener('click', (event) => {
-      if (event.target === imageModal) closeImageModal();
+      if (event.target === imageModalClose || event.target === imageModalPrev || event.target === imageModalNext) {
+        return;
+      }
+
+      // Standard behavior: click/tap right half => next, left half => previous
+      const x = event.clientX;
+      const midpoint = window.innerWidth / 2;
+      stepImageModal(x < midpoint ? -1 : 1);
     });
   }
 
