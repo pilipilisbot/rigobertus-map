@@ -12,6 +12,8 @@
     ],
     "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A8%20Le%20Bistrot%20Girona",
     "notes": "Afegit des del grup: visita del dijous 12 de març.",
+    "status": "visited",
+    "visitedAt": "2026-03-12",
     "externalRating": null,
     "externalReviewCount": null,
     "rigobertusRating": null,
@@ -38,6 +40,7 @@
     ],
     "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Ditifet%20Girona",
     "notes": "Afegit des del grup.",
+    "status": "wishlist",
     "externalRating": null,
     "externalReviewCount": null,
     "rigobertusRating": null,
@@ -51,5 +54,22 @@
       "photos/ditifet/07.jpg",
       "photos/ditifet/08.jpg"
     ]
+  },
+  {
+    "id": "la-menjoteca-gualta",
+    "name": "La Menjoteca",
+    "lat": null,
+    "lng": null,
+    "city": "Gualta",
+    "category": "restaurant",
+    "tags": [
+      "baix-emporda"
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=La+Menjoteca+Gualta",
+    "notes": "Afegit des del grup (pendent de confirmar coordenades exactes).",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": []
   }
 ]
