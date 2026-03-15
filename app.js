@@ -252,16 +252,21 @@ function card(p) {
   el.className = 'card';
   el.id = `place-${safeText(p.id, '').replace(/[^a-zA-Z0-9-_]/g, '')}`;
 
+  const status = getPlaceStatus(p);
+
+  const top = document.createElement('div');
+  top.className = 'card-top';
+
   const title = document.createElement('h3');
   title.textContent = safeText(p.name, 'Sense nom');
-  el.appendChild(title);
-
-  const status = getPlaceStatus(p);
+  top.appendChild(title);
 
   const badge = document.createElement('div');
   badge.className = `status-badge ${statusClass(status)}`;
   badge.textContent = `${statusEmoji(status)} ${statusLabel(status)}`;
-  el.appendChild(badge);
+  top.appendChild(badge);
+
+  el.appendChild(top);
 
   const metaMain = document.createElement('div');
   metaMain.className = 'meta';
