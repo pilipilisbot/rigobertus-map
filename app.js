@@ -5,6 +5,7 @@ const list = document.getElementById('list');
 const count = document.getElementById('count');
 const status = document.getElementById('status');
 const retry = document.getElementById('retry');
+const buildInfo = document.getElementById('buildInfo');
 
 let places = [];
 let map;
@@ -278,6 +279,26 @@ async function loadPlaces() {
   setStatus('');
 }
 
+async function loadBuildInfo() {
+  if (!buildInfo) return;
+
+  try {
+    const res = await fetch('build-info.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('build-info not found');
+
+    const data = await res.json();
+    const builtAt = data.builtAt ? new Date(data.builtAt) : null;
+    const builtAtText = builtAt && !Number.isNaN(builtAt.getTime())
+      ? builtAt.toLocaleString('ca-ES', { dateStyle: 'medium', timeStyle: 'short' })
+      : 'data desconeguda';
+
+    const sha = typeof data.sha === 'string' ? data.sha.slice(0, 7) : '';
+    buildInfo.textContent = sha ? `últim build: ${builtAtText} (commit ${sha})` : `últim build: ${builtAtText}`;
+  } catch (_) {
+    buildInfo.textContent = 'últim build no disponible';
+  }
+}
+
 async function init() {
   initMap();
   map.on('load', () => renderMap(places));
@@ -289,6 +310,8 @@ async function init() {
       retry.hidden = false;
     });
   });
+
+  await loadBuildInfo();
 
   try {
     await loadPlaces();

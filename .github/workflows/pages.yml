@@ -27,6 +27,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Generate build metadata
+        run: |
+          cat > build-info.json <<EOF
+          {
+            "builtAt": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')",
+            "sha": "${GITHUB_SHA}",
+            "runNumber": "${GITHUB_RUN_NUMBER}",
+            "repository": "${GITHUB_REPOSITORY}"
+          }
+          EOF
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
