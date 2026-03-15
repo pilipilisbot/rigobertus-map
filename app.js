@@ -9,10 +9,14 @@ const buildInfo = document.getElementById('buildInfo');
 const imageModal = document.getElementById('imageModal');
 const imageModalImg = document.getElementById('imageModalImg');
 const imageModalClose = document.getElementById('imageModalClose');
+const imageModalPrev = document.getElementById('imageModalPrev');
+const imageModalNext = document.getElementById('imageModalNext');
 
 let places = [];
 let map;
 let markers = [];
+let modalPhotos = [];
+let modalIndex = 0;
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
@@ -140,13 +144,27 @@ function buildRatingMeta(p) {
   return meta;
 }
 
-function openImageModal(src, altText = 'Imatge ampliada') {
-  if (!imageModal || !imageModalImg) return;
-  imageModalImg.src = src;
-  imageModalImg.alt = altText;
+function renderModalPhoto() {
+  if (!imageModalImg || !modalPhotos.length) return;
+  const current = modalPhotos[modalIndex];
+  imageModalImg.src = current.src;
+  imageModalImg.alt = current.alt;
+}
+
+function openImageModal(items, startIndex = 0) {
+  if (!imageModal || !imageModalImg || !Array.isArray(items) || !items.length) return;
+  modalPhotos = items;
+  modalIndex = Math.max(0, Math.min(startIndex, items.length - 1));
+  renderModalPhoto();
   imageModal.hidden = false;
   imageModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+}
+
+function stepImageModal(delta) {
+  if (!modalPhotos.length) return;
+  modalIndex = (modalIndex + delta + modalPhotos.length) % modalPhotos.length;
+  renderModalPhoto();
 }
 
 function closeImageModal() {
@@ -154,6 +172,8 @@ function closeImageModal() {
   imageModal.hidden = true;
   imageModal.setAttribute('aria-hidden', 'true');
   imageModalImg.src = '';
+  modalPhotos = [];
+  modalIndex = 0;
   document.body.style.overflow = '';
 }
 
@@ -164,6 +184,11 @@ function buildPhotos(p) {
   const wrap = document.createElement('div');
   wrap.className = 'photos';
 
+  const modalItems = photos.map((src, index) => ({
+    src,
+    alt: `Foto de ${safeText(p.name, 'lloc')} ${index + 1}`,
+  }));
+
   for (const [index, src] of photos.entries()) {
     const button = document.createElement('button');
     button.type = 'button';
@@ -173,9 +198,9 @@ function buildPhotos(p) {
     const image = document.createElement('img');
     image.src = src;
     image.loading = 'lazy';
-    image.alt = `Foto de ${safeText(p.name, 'lloc')} ${index + 1}`;
+    image.alt = modalItems[index].alt;
 
-    button.addEventListener('click', () => openImageModal(src, image.alt));
+    button.addEventListener('click', () => openImageModal(modalItems, index));
     button.appendChild(image);
     wrap.appendChild(button);
   }
@@ -353,13 +378,20 @@ async function init() {
   map.on('load', () => renderMap(places));
 
   if (imageModalClose) imageModalClose.addEventListener('click', closeImageModal);
+  if (imageModalPrev) imageModalPrev.addEventListener('click', () => stepImageModal(-1));
+  if (imageModalNext) imageModalNext.addEventListener('click', () => stepImageModal(1));
+
   if (imageModal) {
     imageModal.addEventListener('click', (event) => {
       if (event.target === imageModal) closeImageModal();
     });
   }
+
   window.addEventListener('keydown', (event) => {
+    if (!imageModal || imageModal.hidden) return;
     if (event.key === 'Escape') closeImageModal();
+    if (event.key === 'ArrowLeft') stepImageModal(-1);
+    if (event.key === 'ArrowRight') stepImageModal(1);
   });
 
   [q, city, minRating].forEach((el) => el.addEventListener('input', render));

@@ -40,8 +40,12 @@ select:focus-visible{
 .image-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:rgba(4,8,18,.88);padding:1rem}
 .image-modal[hidden]{display:none}
 .image-modal img{max-width:min(1200px,95vw);max-height:88vh;border-radius:.75rem;border:1px solid #2d365c;box-shadow:0 16px 38px rgba(0,0,0,.45);background:#111}
-.image-modal-close{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:999px;border:1px solid #41558a;background:#1a264d;color:#e8ecff;font-size:1.1rem;cursor:pointer}
+.image-modal-close{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:999px;border:1px solid #41558a;background:#1a264d;color:#e8ecff;font-size:1.1rem;cursor:pointer;z-index:1002}
 .image-modal-close:hover{background:#23346a}
+.image-modal-nav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:999px;border:1px solid #41558a;background:#1a264d;color:#e8ecff;font-size:2rem;line-height:1;cursor:pointer;z-index:1002}
+.image-modal-nav:hover{background:#23346a}
+.image-modal-prev{left:14px}
+.image-modal-next{right:14px}
 
 @media (max-width: 767px){
   body{padding:.75rem}
