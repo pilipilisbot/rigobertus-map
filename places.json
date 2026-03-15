@@ -95,5 +95,131 @@
     "externalReviewCount": null,
     "rigobertusRating": null,
     "photos": []
+  },
+  {
+    "id": "restaurant-lescabetx",
+    "name": "Restaurant l'Escabetx",
+    "lat": 41.9852701,
+    "lng": 2.8227466999999997,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9852701,2.8227466999999997",
+    "notes": "Auto-resolt Places. Query: Restaurant l'Escabetx Girona. Address: Carrer Anselm Clavé, 24, 17001 Girona, Spain",
+    "placeId": "ChIJiVDgZsHnuhIR_TJFHdLDtD0"
+  },
+  {
+    "id": "ca-la-pilar",
+    "name": "Ca La Pilar",
+    "lat": 42.013901,
+    "lng": 2.827124,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=42.013901,2.827124",
+    "notes": "Auto-resolt Places. Query: Restaurant Ca la Pilar Girona. Address: Carrer Pont Major, 124, 17840 Girona, Spain",
+    "placeId": "ChIJTyjI_E_muhIRfD3F9IiIp4E"
+  },
+  {
+    "id": "sao-restaurante",
+    "name": "Saó Restaurant by Vicenç Fajardo",
+    "lat": 41.9501724,
+    "lng": 3.0579001,
+    "city": "17110 Fonteta",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9501724,3.0579001",
+    "notes": "Auto-resolt Places. Query: Sao Restaurante Girona. Address: Carrer Estret, 3, 17110 Fonteta, Girona, Spain",
+    "placeId": "ChIJ3WpsFOz_uhIR7O-kZfhlrpQ"
+  },
+  {
+    "id": "taj-indian-restaurant",
+    "name": "Restaurant Taj Bangla",
+    "lat": 41.9848348,
+    "lng": 2.8254074,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9848348,2.8254074",
+    "notes": "Auto-resolt Places. Query: Taj Indian Restaurant Girona. Address: Carrer de la Cort Reial, 6, 17004 Girona, Spain",
+    "placeId": "ChIJN_xenefmuhIR1qmBt_A-RTk"
+  },
+  {
+    "id": "monki-restaurant",
+    "name": "MONKI RESTAURANT",
+    "lat": 41.9752623,
+    "lng": 3.0007832999999997,
+    "city": "17121 Monells",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9752623,3.0007832999999997",
+    "notes": "Auto-resolt Places. Query: Monki Restaurant Girona. Address: Carrer Vilanova, 1, 17121 Monells, Girona, Spain",
+    "placeId": "ChIJ0ZgdBkb7uhIR_ujDwaAkdKI"
+  },
+  {
+    "id": "restaurant-mondo",
+    "name": "Restaurant Mondo",
+    "lat": 41.959862099999995,
+    "lng": 3.0372413,
+    "city": "17100 La Bisbal d'Empordà",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.959862099999995,3.0372413",
+    "notes": "Auto-resolt Places. Query: Restaurant Mondo La Bisbal d'Emporda. Address: Carrer Cavallers, 22, 17100 La Bisbal d'Empordà, Girona, Spain",
+    "placeId": "ChIJoy_4o0r5uhIRb2PPDaAPTY0"
+  },
+  {
+    "id": "toc-de-vi",
+    "name": "Toc de Vi",
+    "lat": 42.0840314,
+    "lng": 2.9871311,
+    "city": "17144 Colomers",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=42.0840314,2.9871311",
+    "notes": "Auto-resolt Places. Query: Restaurant Toc de Vi Girona. Address: Plaça de l'Església, 17144 Colomers, Girona, Spain",
+    "placeId": "ChIJi7SGQcLxuhIRGWS213Hv9ok"
+  },
+  {
+    "id": "la-farinera-restaurant",
+    "name": "La Farinera Restaurant Girona",
+    "lat": 41.981415899999995,
+    "lng": 2.8162645,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.981415899999995,2.8162645",
+    "notes": "Auto-resolt Places. Query: La Farinera Restaurant Girona. Address: Carrer de Santa Eugènia, 42, 17005 Girona, Spain",
+    "placeId": "ChIJFeURF4HnuhIRsiiMs_mx7yI"
+  },
+  {
+    "id": "birrot",
+    "name": "El Birrot",
+    "lat": 42.0731537,
+    "lng": 3.0113057999999997,
+    "city": "17143 Jafre",
+    "category": "bar",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=42.0731537,3.0113057999999997",
+    "notes": "Auto-resolt Places. Query: Birrot Girona. Address: Carrer la Creu, 5, 17143 Jafre, Girona, Spain",
+    "placeId": "ChIJJZwyNNHwuhIRJEx38Rr9qX4"
   }
 ]
