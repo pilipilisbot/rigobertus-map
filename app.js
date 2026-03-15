@@ -6,6 +6,9 @@ const count = document.getElementById('count');
 const status = document.getElementById('status');
 const retry = document.getElementById('retry');
 const buildInfo = document.getElementById('buildInfo');
+const imageModal = document.getElementById('imageModal');
+const imageModalImg = document.getElementById('imageModalImg');
+const imageModalClose = document.getElementById('imageModalClose');
 
 let places = [];
 let map;
@@ -136,6 +139,23 @@ function buildRatingMeta(p) {
   return meta;
 }
 
+function openImageModal(src, altText = 'Imatge ampliada') {
+  if (!imageModal || !imageModalImg) return;
+  imageModalImg.src = src;
+  imageModalImg.alt = altText;
+  imageModal.hidden = false;
+  imageModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+  if (!imageModal || !imageModalImg) return;
+  imageModal.hidden = true;
+  imageModal.setAttribute('aria-hidden', 'true');
+  imageModalImg.src = '';
+  document.body.style.overflow = '';
+}
+
 function buildPhotos(p) {
   const photos = toSafePhotos(p.photos);
   if (!photos.length) return null;
@@ -144,11 +164,19 @@ function buildPhotos(p) {
   wrap.className = 'photos';
 
   for (const [index, src] of photos.entries()) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'photo-btn';
+    button.setAttribute('aria-label', `Ampliar foto ${index + 1} de ${safeText(p.name, 'lloc')}`);
+
     const image = document.createElement('img');
     image.src = src;
     image.loading = 'lazy';
     image.alt = `Foto de ${safeText(p.name, 'lloc')} ${index + 1}`;
-    wrap.appendChild(image);
+
+    button.addEventListener('click', () => openImageModal(src, image.alt));
+    button.appendChild(image);
+    wrap.appendChild(button);
   }
 
   return wrap;
@@ -322,6 +350,16 @@ async function loadBuildInfo() {
 async function init() {
   initMap();
   map.on('load', () => renderMap(places));
+
+  if (imageModalClose) imageModalClose.addEventListener('click', closeImageModal);
+  if (imageModal) {
+    imageModal.addEventListener('click', (event) => {
+      if (event.target === imageModal) closeImageModal();
+    });
+  }
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeImageModal();
+  });
 
   [q, city, minRating].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
