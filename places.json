@@ -16,5 +16,23 @@
     "externalReviewCount": null,
     "rigobertusRating": null,
     "photos": []
+  },
+  {
+    "id": "ditifet-girona",
+    "name": "Ditifet",
+    "lat": 41.9876181,
+    "lng": 2.8241874,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "barri-vell",
+      "sopar"
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Ditifet%20Girona",
+    "notes": "Afegit des del grup.",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": []
   }
 ]
