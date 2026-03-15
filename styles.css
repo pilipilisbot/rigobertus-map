@@ -46,6 +46,7 @@ select:focus-visible{
 .image-modal-nav:hover{background:#23346a}
 .image-modal-prev{left:14px}
 .image-modal-next{right:14px}
+.image-modal-counter{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);padding:.35rem .65rem;border-radius:999px;border:1px solid #41558a;background:#1a264d;color:#e8ecff;font-size:.85rem;z-index:1002}
 
 @media (max-width: 767px){
   body{padding:.75rem}

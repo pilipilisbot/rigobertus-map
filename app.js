@@ -11,6 +11,7 @@ const imageModalImg = document.getElementById('imageModalImg');
 const imageModalClose = document.getElementById('imageModalClose');
 const imageModalPrev = document.getElementById('imageModalPrev');
 const imageModalNext = document.getElementById('imageModalNext');
+const imageModalCounter = document.getElementById('imageModalCounter');
 
 let places = [];
 let map;
@@ -50,8 +51,8 @@ function safePhotoUrl(value) {
 
   // Allow local static asset paths (e.g. photos/bistrot/01.jpg)
   if (/^[a-zA-Z0-9._\-/]+$/.test(raw) && !raw.startsWith('//')) {
-    const normalized = raw.startsWith('/') ? raw : `/${raw}`;
-    return new URL(normalized, window.location.origin).toString();
+    // Resolve relative to current page (works for both custom domain and /repo paths)
+    return new URL(raw, window.location.href).toString();
   }
 
   return '#';
@@ -144,11 +145,22 @@ function buildRatingMeta(p) {
   return meta;
 }
 
+function updateModalControls() {
+  if (imageModalCounter) {
+    imageModalCounter.textContent = modalPhotos.length ? `${modalIndex + 1} / ${modalPhotos.length}` : '';
+  }
+
+  const hasMany = modalPhotos.length > 1;
+  if (imageModalPrev) imageModalPrev.hidden = !hasMany;
+  if (imageModalNext) imageModalNext.hidden = !hasMany;
+}
+
 function renderModalPhoto() {
   if (!imageModalImg || !modalPhotos.length) return;
   const current = modalPhotos[modalIndex];
   imageModalImg.src = current.src;
   imageModalImg.alt = current.alt;
+  updateModalControls();
 }
 
 function openImageModal(items, startIndex = 0) {
@@ -174,6 +186,7 @@ function closeImageModal() {
   imageModalImg.src = '';
   modalPhotos = [];
   modalIndex = 0;
+  updateModalControls();
   document.body.style.overflow = '';
 }
 
@@ -380,6 +393,14 @@ async function init() {
   if (imageModalClose) imageModalClose.addEventListener('click', closeImageModal);
   if (imageModalPrev) imageModalPrev.addEventListener('click', () => stepImageModal(-1));
   if (imageModalNext) imageModalNext.addEventListener('click', () => stepImageModal(1));
+
+  if (imageModalImg) {
+    imageModalImg.addEventListener('click', (event) => {
+      const rect = imageModalImg.getBoundingClientRect();
+      const isLeft = event.clientX < rect.left + rect.width / 2;
+      stepImageModal(isLeft ? -1 : 1);
+    });
+  }
 
   if (imageModal) {
     imageModal.addEventListener('click', (event) => {
