@@ -27,7 +27,19 @@
       <option value="4">4★ o més</option>
       <option value="3">3★ o més</option>
     </select>
+
+    <label class="sr-only" for="statusFilter">Filtra per estat</label>
+    <select id="statusFilter">
+      <option value="">Tots els estats</option>
+      <option value="wishlist">Per anar</option>
+      <option value="visited">Visitats</option>
+    </select>
   </section>
+
+  <p class="legend" aria-label="Llegenda d'estat">
+    <span class="legend-item"><span class="dot dot-wishlist"></span> Per anar</span>
+    <span class="legend-item"><span class="dot dot-visited"></span> Visitat</span>
+  </p>
 
   <main>
     <p id="status" role="status" aria-live="polite"></p>

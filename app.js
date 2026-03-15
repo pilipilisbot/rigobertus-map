@@ -1,6 +1,7 @@
 const q = document.getElementById('q');
 const city = document.getElementById('city');
 const minRating = document.getElementById('minRating');
+const statusFilter = document.getElementById('statusFilter');
 const list = document.getElementById('list');
 const count = document.getElementById('count');
 const status = document.getElementById('status');
@@ -101,6 +102,26 @@ function fillFilters() {
   }
 }
 
+function getPlaceStatus(p) {
+  return p.status === 'visited' || p.status === 'wishlist' ? p.status : 'wishlist';
+}
+
+function statusLabel(status) {
+  return status === 'visited' ? 'Visitat' : 'Per anar';
+}
+
+function statusEmoji(status) {
+  return status === 'visited' ? '✅' : '📍';
+}
+
+function statusClass(status) {
+  return status === 'visited' ? 'status-visited' : 'status-wishlist';
+}
+
+function markerColor(status) {
+  return status === 'visited' ? '#22c55e' : '#f59e0b';
+}
+
 function matches(p) {
   const text = (q.value || '').trim().toLowerCase();
   const hay = [p.name, p.city, (p.tags || []).join(' '), p.notes || ''].join(' ').toLowerCase();
@@ -110,6 +131,11 @@ function matches(p) {
   const min = Number(minRating.value);
   const rating = getDisplayRating(p);
   if (minRating.value && (rating === null || rating < min)) return false;
+
+  if (statusFilter.value) {
+    const currentStatus = getPlaceStatus(p);
+    if (currentStatus !== statusFilter.value) return false;
+  }
 
   return true;
 }
@@ -230,6 +256,13 @@ function card(p) {
   title.textContent = safeText(p.name, 'Sense nom');
   el.appendChild(title);
 
+  const status = getPlaceStatus(p);
+
+  const badge = document.createElement('div');
+  badge.className = `status-badge ${statusClass(status)}`;
+  badge.textContent = `${statusEmoji(status)} ${statusLabel(status)}`;
+  el.appendChild(badge);
+
   const metaMain = document.createElement('div');
   metaMain.className = 'meta';
   metaMain.textContent = `${safeText(p.city)}`;
@@ -241,6 +274,13 @@ function card(p) {
   metaCoords.className = 'meta';
   metaCoords.textContent = `${p.lat ?? '-'}, ${p.lng ?? '-'}`;
   el.appendChild(metaCoords);
+
+  if (status === 'visited' && p.visitedAt) {
+    const visitMeta = document.createElement('div');
+    visitMeta.className = 'meta';
+    visitMeta.textContent = `Última visita: ${safeText(p.visitedAt)}`;
+    el.appendChild(visitMeta);
+  }
 
   const photoStrip = buildPhotos(p);
   if (photoStrip) el.appendChild(photoStrip);
@@ -284,6 +324,17 @@ function createPopupNode(p) {
   const rating = getDisplayRating(p);
   if (rating !== null) {
     container.appendChild(document.createTextNode(`${stars(rating)} ${rating.toFixed(1)}`));
+    container.appendChild(document.createElement('br'));
+  }
+
+  const status = getPlaceStatus(p);
+  const statusLine = document.createElement('span');
+  statusLine.textContent = `${statusEmoji(status)} ${statusLabel(status)}`;
+  container.appendChild(statusLine);
+  container.appendChild(document.createElement('br'));
+
+  if (status === 'visited' && p.visitedAt) {
+    container.appendChild(document.createTextNode(`Última visita: ${safeText(p.visitedAt)}`));
     container.appendChild(document.createElement('br'));
   }
 
@@ -340,7 +391,7 @@ function renderMap(filtered) {
 
   for (const p of withCoords) {
     const popup = new maplibregl.Popup({ offset: 20 }).setDOMContent(createPopupNode(p));
-    const marker = new maplibregl.Marker({ color: '#ff7a59' })
+    const marker = new maplibregl.Marker({ color: markerColor(getPlaceStatus(p)) })
       .setLngLat([p.lng, p.lat])
       .setPopup(popup)
       .addTo(map);
@@ -359,7 +410,16 @@ function renderMap(filtered) {
 }
 
 function render() {
-  const filtered = places.filter(matches);
+  const filtered = places
+    .filter(matches)
+    .sort((a, b) => {
+      const order = { wishlist: 0, visited: 1 };
+      const sa = order[getPlaceStatus(a)] ?? 9;
+      const sb = order[getPlaceStatus(b)] ?? 9;
+      if (sa !== sb) return sa - sb;
+      return safeText(a.name, '').localeCompare(safeText(b.name, ''), 'ca');
+    });
+
   count.textContent = `${filtered.length} llocs`;
   list.innerHTML = '';
   filtered.forEach((p) => list.appendChild(card(p)));
@@ -434,7 +494,7 @@ async function init() {
     if (event.key === 'ArrowRight') stepImageModal(1);
   });
 
-  [q, city, minRating].forEach((el) => el.addEventListener('input', render));
+  [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
