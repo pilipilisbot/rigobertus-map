@@ -15,7 +15,15 @@
     "externalRating": null,
     "externalReviewCount": null,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [
+      "photos/bistrot/01.jpg",
+      "photos/bistrot/02.jpg",
+      "photos/bistrot/03.jpg",
+      "photos/bistrot/04.jpg",
+      "photos/bistrot/05.jpg",
+      "photos/bistrot/06.jpg",
+      "photos/bistrot/07.jpg"
+    ]
   },
   {
     "id": "ditifet-girona",

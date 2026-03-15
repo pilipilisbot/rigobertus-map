@@ -125,7 +125,7 @@ function buildPhotos(p) {
   const wrap = document.createElement('div');
   wrap.className = 'photos';
 
-  for (const [index, src] of photos.slice(0, 4).entries()) {
+  for (const [index, src] of photos.entries()) {
     const image = document.createElement('img');
     image.src = src;
     image.loading = 'lazy';
