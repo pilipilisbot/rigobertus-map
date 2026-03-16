@@ -269,5 +269,24 @@
     "rigobertusRating": null,
     "photos": [],
     "placeId": "ChIJeURx_6jnuhIRO7uc5fdnYKQ"
+  },
+  {
+    "id": "txalaka-girona",
+    "name": "txalaka Girona",
+    "lat": 41.9857514,
+    "lng": 2.8201619,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9857514,2.8201619",
+    "notes": "Validat amb Google Places: Carrer Bonastruc de Porta, 4, 17001 Girona.",
+    "placeId": "ChIJw-4gXuDmuhIRmVb5srXRus4",
+    "externalRating": 4.3,
+    "externalReviewCount": 4029,
+    "rigobertusRating": null,
+    "status": "visited",
+    "photos": []
   }
 ]
