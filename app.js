@@ -5,6 +5,7 @@ const statusFilter = document.getElementById('statusFilter');
 const list = document.getElementById('list');
 const count = document.getElementById('count');
 const status = document.getElementById('status');
+const featuredPlace = document.getElementById('featuredPlace');
 const retry = document.getElementById('retry');
 const buildInfo = document.getElementById('buildInfo');
 const imageModal = document.getElementById('imageModal');
@@ -286,6 +287,54 @@ function buildRatingMeta(p) {
   return meta;
 }
 
+function renderFeaturedPlace() {
+  if (!featuredPlace) return;
+
+  const safeId = normalizePlaceId(featuredPlaceId);
+  const place = safeId ? places.find((item) => normalizePlaceId(item.id) === safeId) : null;
+
+  if (!place) {
+    featuredPlace.hidden = true;
+    featuredPlace.innerHTML = '';
+    return;
+  }
+
+  const placeStatus = getPlaceStatus(place);
+  featuredPlace.hidden = false;
+  featuredPlace.innerHTML = '';
+
+  const title = document.createElement('h2');
+  title.textContent = `📌 Fitxa compartida: ${safeText(place.name, 'Lloc')}`;
+  featuredPlace.appendChild(title);
+
+  const meta = document.createElement('p');
+  meta.className = 'featured-meta';
+  meta.textContent = `${safeText(place.city)} · ${statusEmoji(placeStatus)} ${statusLabel(placeStatus)}`;
+  featuredPlace.appendChild(meta);
+
+  const rating = buildRatingMeta(place);
+  rating.classList.add('featured-rating');
+  featuredPlace.appendChild(rating);
+
+  const links = document.createElement('p');
+  links.className = 'featured-links';
+  links.appendChild(buildMapsLink(place.mapsUrl));
+  links.appendChild(document.createTextNode(' · '));
+  links.appendChild(buildPlaceLink(safeId, 'Copiar/obrir enllaç de fitxa'));
+
+  const jump = document.createElement('a');
+  jump.href = `#place-${safeId}`;
+  jump.textContent = 'Veure fitxa completa ↓';
+  jump.addEventListener('click', (event) => {
+    event.preventDefault();
+    highlightPlaceCard(safeId);
+  });
+
+  links.appendChild(document.createTextNode(' · '));
+  links.appendChild(jump);
+  featuredPlace.appendChild(links);
+}
+
 function updateModalControls() {
   if (imageModalCounter) {
     imageModalCounter.textContent = modalPhotos.length ? `${modalIndex + 1} / ${modalPhotos.length}` : '';
@@ -532,6 +581,7 @@ function focusPlace(placeId, options = {}) {
   }
 
   featuredPlaceId = safeId;
+  renderFeaturedPlace();
   applyFeaturedCard(safeId);
   highlightPlaceCard(safeId);
 
@@ -596,6 +646,10 @@ function render() {
   const filtered = places
     .filter(matches)
     .sort((a, b) => {
+      const fa = normalizePlaceId(a.id) === normalizePlaceId(featuredPlaceId) ? 0 : 1;
+      const fb = normalizePlaceId(b.id) === normalizePlaceId(featuredPlaceId) ? 0 : 1;
+      if (fa !== fb) return fa - fb;
+
       const order = { wishlist: 0, visited: 1 };
       const sa = order[getPlaceStatus(a)] ?? 9;
       const sb = order[getPlaceStatus(b)] ?? 9;
@@ -606,6 +660,7 @@ function render() {
   count.textContent = `${filtered.length} llocs`;
   list.innerHTML = '';
   filtered.forEach((p) => list.appendChild(card(p)));
+  renderFeaturedPlace();
   applyFeaturedCard(featuredPlaceId);
   renderMap(filtered);
 }
@@ -688,6 +743,7 @@ async function init() {
     }
 
     featuredPlaceId = null;
+    renderFeaturedPlace();
     applyFeaturedCard(null);
     setStatus('');
   });
