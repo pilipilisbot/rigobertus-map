@@ -112,7 +112,11 @@
     "placeId": "ChIJiVDgZsHnuhIR_TJFHdLDtD0",
     "status": "visited",
     "externalRating": 4.8,
-    "externalReviewCount": 598
+    "externalReviewCount": 598,
+    "photos": [
+      "photos/escabetx/01.jpg",
+      "photos/escabetx/02.jpg"
+    ]
   },
   {
     "id": "ca-la-pilar",
