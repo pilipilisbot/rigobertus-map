@@ -125,11 +125,13 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=42.013901,2.827124",
-    "notes": "Auto-resolt Places. Query: Restaurant Ca la Pilar Girona. Address: Carrer Pont Major, 124, 17840 Girona, Spain",
+    "notes": "Validat amb Google Places: Carrer Pont Major, 124, 17840 Girona",
     "placeId": "ChIJTyjI_E_muhIRfD3F9IiIp4E",
     "status": "visited",
     "externalRating": 4.6,
-    "externalReviewCount": 464
+    "externalReviewCount": 464,
+    "rigobertusRating": null,
+    "photos": []
   },
   {
     "id": "sao-restaurante",
@@ -150,7 +152,7 @@
     "externalReviewCount": 437
   },
   {
-    "id": "taj-indian-restaurant",
+    "id": "taj-bangla-girona",
     "name": "Restaurant Taj Bangla",
     "lat": 41.9848348,
     "lng": 2.8254074,
@@ -160,11 +162,13 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9848348,2.8254074",
-    "notes": "Auto-resolt Places. Query: Taj Indian Restaurant Girona. Address: Carrer de la Cort Reial, 6, 17004 Girona, Spain",
+    "notes": "Validat amb Google Places: Carrer de la Cort Reial, 6, 17004 Girona",
     "placeId": "ChIJN_xenefmuhIR1qmBt_A-RTk",
     "status": "visited",
     "externalRating": 4.4,
-    "externalReviewCount": 918
+    "externalReviewCount": 918,
+    "rigobertusRating": null,
+    "photos": []
   },
   {
     "id": "monki-restaurant",
@@ -228,11 +232,13 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.981415899999995,2.8162645",
-    "notes": "Auto-resolt Places. Query: La Farinera Restaurant Girona. Address: Carrer de Santa Eugènia, 42, 17005 Girona, Spain",
+    "notes": "Validat amb Google Places: Carrer de Santa Eugènia, 42, 17005 Girona",
     "placeId": "ChIJFeURF4HnuhIRsiiMs_mx7yI",
     "status": "visited",
     "externalRating": 4.8,
-    "externalReviewCount": 164
+    "externalReviewCount": 164,
+    "rigobertusRating": null,
+    "photos": []
   },
   {
     "id": "birrot",
@@ -288,5 +294,176 @@
     "rigobertusRating": null,
     "status": "visited",
     "photos": []
+  },
+  {
+    "id": "el-balco-girona",
+    "name": "El Balcó",
+    "lat": 41.984601399999995,
+    "lng": 2.8225765999999997,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.984601399999995,2.8225765999999997",
+    "notes": "Validat amb Google Places: Carrer de les Hortes, 16, 17001 Girona",
+    "placeId": "ChIJNdiArODmuhIRiETeaJnFdyY",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "sinofos-girona",
+    "name": "SinoFos Restaurant",
+    "lat": 41.981946199999996,
+    "lng": 2.822825,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.981946199999996,2.822825",
+    "notes": "Validat amb Google Places: Plaça de Catalunya, nº25, B, 17002 Girona",
+    "placeId": "ChIJdXzcaojnuhIRkud9Igxmyj8",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "safo-girona",
+    "name": "SAFO",
+    "lat": 41.9825869,
+    "lng": 2.8248078999999997,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.9825869,2.8248078999999997",
+    "notes": "Validat amb Google Places: Carrer Nou del Teatre, 2, 17004 Girona",
+    "placeId": "ChIJO89rcnbnuhIRElEXM_ayBL8",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "pocavergonya-bistro-girona",
+    "name": "Pocavergonya Bistró",
+    "lat": 41.9810437,
+    "lng": 2.8185625,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.9810437,2.8185625",
+    "notes": "Validat amb Google Places: Plaça Poeta Marquina, 1, 17002 Girona",
+    "placeId": "ChIJiaNmp8TnuhIRNFikiMMJeMo",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "a4mans-girona",
+    "name": "Restaurant A4MANS",
+    "lat": 41.9815051,
+    "lng": 2.8218128,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.9815051,2.8218128",
+    "notes": "Validat amb Google Places: Pça. Pompeu Fabra, 9, 17001 Girona",
+    "placeId": "ChIJ0xakw0TnuhIRMkb_sqetKoE",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "santino-corca",
+    "name": "Santino",
+    "lat": 41.988862,
+    "lng": 3.0167085,
+    "city": "Corçà",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.988862,3.0167085",
+    "notes": "Validat amb Google Places: Carrer Major, 5, 17121 Corçà, Girona",
+    "placeId": "ChIJlS78G9j7uhIRpTN5l0hiFPM",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "el-magatzem-de-fonteta",
+    "name": "El Magatzem de Fonteta",
+    "lat": 41.9508127,
+    "lng": 3.0568949,
+    "city": "Fonteta",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.9508127,3.0568949",
+    "notes": "Validat amb Google Places: Carrer de l'Empordà, 10, 17110 Fonteta, Girona",
+    "placeId": "ChIJo7IUxJT_uhIRzWINEDZ8oQw",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "hiroshi-girona",
+    "name": "Hiroshi Girona",
+    "lat": 41.9668527,
+    "lng": 2.8210702999999997,
+    "city": "Girona",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=41.9668527,2.8210702999999997",
+    "notes": "Validat amb Google Places: Pujada Creu de Palau, 19, 17003 Girona",
+    "placeId": "ChIJfdH7Ti7nuhIRTEOgBAxXT7Q",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
+  },
+  {
+    "id": "nimu-celra",
+    "name": "Nimú",
+    "lat": 42.025516599999996,
+    "lng": 2.8781214999999998,
+    "city": "Celrà",
+    "category": "restaurant",
+    "mapsUrl": "https://maps.google.com/?q=42.025516599999996,2.8781214999999998",
+    "notes": "Validat amb Google Places: Carrer Major, 1, 17460 Celrà, Girona",
+    "placeId": "ChIJB8t25HnluhIRZGlCB354v0s",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": [],
+    "tags": [
+      "rigobertus"
+    ]
   }
 ]
