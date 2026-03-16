@@ -19,6 +19,8 @@ let map;
 let markers = [];
 let modalPhotos = [];
 let modalIndex = 0;
+let markerById = new Map();
+let pendingPlaceId = null;
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
@@ -28,6 +30,37 @@ function safeText(value, fallback = '-') {
   if (value === null || value === undefined) return fallback;
   const text = String(value).trim();
   return text || fallback;
+}
+
+function normalizePlaceId(value) {
+  const text = safeText(value, '').toLowerCase();
+  return text.replace(/[^a-z0-9-_]/g, '');
+}
+
+function getPlaceParamFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return normalizePlaceId(params.get('place'));
+}
+
+function buildPlaceShareUrl(placeId) {
+  const normalized = normalizePlaceId(placeId);
+  if (!normalized) return '';
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('place', normalized);
+  url.hash = '';
+  return url.toString();
+}
+
+function highlightPlaceCard(placeId) {
+  const safeId = normalizePlaceId(placeId);
+  if (!safeId) return;
+  const target = document.getElementById(`place-${safeId}`);
+  if (!target) return;
+
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  target.classList.add('card-highlight');
+  setTimeout(() => target.classList.remove('card-highlight'), 1200);
 }
 
 function safeHttpUrl(value) {
@@ -156,6 +189,28 @@ function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
   return link;
 }
 
+function buildPlaceLink(placeId, label = 'Veure fitxa') {
+  const link = document.createElement('a');
+  const shareUrl = buildPlaceShareUrl(placeId);
+  link.href = shareUrl || '#';
+  link.textContent = shareUrl ? label : 'Enllaç no disponible';
+
+  if (!shareUrl) {
+    link.removeAttribute('href');
+    return link;
+  }
+
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    const id = normalizePlaceId(placeId);
+    if (!id) return;
+    history.replaceState({}, '', `?place=${encodeURIComponent(id)}`);
+    focusPlace(id, { openPopup: true, updateUrl: false });
+  });
+
+  return link;
+}
+
 function buildRatingMeta(p) {
   const rating = getDisplayRating(p);
   const meta = document.createElement('div');
@@ -250,7 +305,8 @@ function buildPhotos(p) {
 function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
-  el.id = `place-${safeText(p.id, '').replace(/[^a-zA-Z0-9-_]/g, '')}`;
+  const safeId = normalizePlaceId(p.id);
+  if (safeId) el.id = `place-${safeId}`;
 
   const status = getPlaceStatus(p);
 
@@ -293,6 +349,10 @@ function card(p) {
   const links = document.createElement('div');
   links.className = 'links';
   links.appendChild(buildMapsLink(p.mapsUrl));
+  if (safeId) {
+    links.appendChild(document.createTextNode(' · '));
+    links.appendChild(buildPlaceLink(safeId, 'Compartir fitxa'));
+  }
   el.appendChild(links);
 
   if (p.notes) {
@@ -343,20 +403,14 @@ function createPopupNode(p) {
     container.appendChild(document.createElement('br'));
   }
 
-  const safeId = safeText(p.id, '').replace(/[^a-zA-Z0-9-_]/g, '');
+  const safeId = normalizePlaceId(p.id);
   if (safeId) {
     const internalLink = document.createElement('a');
     internalLink.href = `#place-${safeId}`;
     internalLink.textContent = 'Veure fitxa';
-    internalLink.addEventListener('click', () => {
-      setTimeout(() => {
-        const target = document.getElementById(`place-${safeId}`);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          target.classList.add('card-highlight');
-          setTimeout(() => target.classList.remove('card-highlight'), 1200);
-        }
-      }, 0);
+    internalLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      focusPlace(safeId, { openPopup: true });
     });
     container.appendChild(internalLink);
     container.appendChild(document.createTextNode(' · '));
@@ -364,12 +418,48 @@ function createPopupNode(p) {
 
   container.appendChild(buildMapsLink(p.mapsUrl, 'Google Maps'));
 
+  if (safeId) {
+    container.appendChild(document.createTextNode(' · '));
+    container.appendChild(buildPlaceLink(safeId, 'Compartir fitxa'));
+  }
+
   return container;
 }
 
 function clearMarkers() {
   for (const marker of markers) marker.remove();
   markers = [];
+  markerById.clear();
+}
+
+function focusPlace(placeId, options = {}) {
+  const { openPopup = true, updateUrl = true } = options;
+  const safeId = normalizePlaceId(placeId);
+  if (!safeId) return false;
+
+  const marker = markerById.get(safeId);
+  if (!marker) {
+    pendingPlaceId = safeId;
+    return false;
+  }
+
+  const lngLat = marker.getLngLat();
+  if (map && lngLat) {
+    map.easeTo({ center: [lngLat.lng, lngLat.lat], zoom: Math.max(map.getZoom(), 14), duration: 700 });
+  }
+
+  if (openPopup && marker.getPopup()) {
+    marker.togglePopup();
+    if (!marker.getPopup().isOpen()) marker.togglePopup();
+  }
+
+  if (updateUrl) {
+    history.replaceState({}, '', `?place=${encodeURIComponent(safeId)}`);
+  }
+
+  highlightPlaceCard(safeId);
+  pendingPlaceId = null;
+  return true;
 }
 
 function initMap() {
@@ -402,16 +492,22 @@ function renderMap(filtered) {
       .addTo(map);
 
     markers.push(marker);
+
+    const safeId = normalizePlaceId(p.id);
+    if (safeId) markerById.set(safeId, marker);
   }
 
   if (withCoords.length === 1) {
     map.easeTo({ center: [withCoords[0].lng, withCoords[0].lat], zoom: 14, duration: 700 });
-    return;
+  } else {
+    const bounds = new maplibregl.LngLatBounds();
+    for (const p of withCoords) bounds.extend([p.lng, p.lat]);
+    map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 700 });
   }
 
-  const bounds = new maplibregl.LngLatBounds();
-  for (const p of withCoords) bounds.extend([p.lng, p.lat]);
-  map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 700 });
+  if (pendingPlaceId) {
+    setTimeout(() => focusPlace(pendingPlaceId, { openPopup: true, updateUrl: false }), 250);
+  }
 }
 
 function render() {
@@ -442,6 +538,7 @@ async function loadPlaces() {
   if (!Array.isArray(data)) throw new Error("places.json no té el format esperat (array)");
 
   places = data;
+  pendingPlaceId = getPlaceParamFromUrl() || null;
   clearFilters();
   fillFilters();
   render();
@@ -497,6 +594,11 @@ async function init() {
     if (event.key === 'Escape') closeImageModal();
     if (event.key === 'ArrowLeft') stepImageModal(-1);
     if (event.key === 'ArrowRight') stepImageModal(1);
+  });
+
+  window.addEventListener('popstate', () => {
+    const placeId = getPlaceParamFromUrl();
+    if (placeId) focusPlace(placeId, { openPopup: true, updateUrl: false });
   });
 
   [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));

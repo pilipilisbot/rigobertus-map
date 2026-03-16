@@ -12,6 +12,7 @@ Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
 - Layout responsive millorat i focus visible per accessibilitat (mòbil + teclat)
 - Fitxes amb valoració externa + valoració Rigobertus, recompte de reviews i fotos
 - Filtre per valoració mínima (prioritza Rigobertus si existeix)
+- Enllaços compartibles de fitxa (`?place=<id>`) des de la fitxa i el popup del mapa
 - Els canvis es fan via commit/PR
 
 ## Esquema mínim (`places.json`)
