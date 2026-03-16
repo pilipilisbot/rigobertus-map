@@ -21,6 +21,7 @@ let modalPhotos = [];
 let modalIndex = 0;
 let markerById = new Map();
 let pendingPlaceId = null;
+let featuredPlaceId = null;
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
@@ -52,6 +53,17 @@ function buildPlaceShareUrl(placeId) {
   return url.toString();
 }
 
+function applyFeaturedCard(placeId) {
+  const cards = document.querySelectorAll('.card.card-featured');
+  cards.forEach((card) => card.classList.remove('card-featured'));
+
+  const safeId = normalizePlaceId(placeId);
+  if (!safeId) return;
+
+  const target = document.getElementById(`place-${safeId}`);
+  if (target) target.classList.add('card-featured');
+}
+
 function highlightPlaceCard(placeId) {
   const safeId = normalizePlaceId(placeId);
   if (!safeId) return;
@@ -60,7 +72,7 @@ function highlightPlaceCard(placeId) {
 
   target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   target.classList.add('card-highlight');
-  setTimeout(() => target.classList.remove('card-highlight'), 1200);
+  setTimeout(() => target.classList.remove('card-highlight'), 1400);
 }
 
 function safeHttpUrl(value) {
@@ -98,8 +110,16 @@ function normalizeRating(value) {
   return Math.max(0, Math.min(5, n));
 }
 
+function getRigobertusRating(place) {
+  return normalizeRating(place.rigobertusRating);
+}
+
+function getExternalRating(place) {
+  return normalizeRating(place.externalRating);
+}
+
 function getDisplayRating(place) {
-  return normalizeRating(place.rigobertusRating ?? place.externalRating);
+  return getRigobertusRating(place) ?? getExternalRating(place);
 }
 
 function stars(value) {
@@ -212,17 +232,57 @@ function buildPlaceLink(placeId, label = 'Veure fitxa') {
 }
 
 function buildRatingMeta(p) {
-  const rating = getDisplayRating(p);
   const meta = document.createElement('div');
   meta.className = 'rating';
 
-  if (rating === null) {
-    meta.textContent = 'Sense valoracions';
+  const status = getPlaceStatus(p);
+  const rigRating = getRigobertusRating(p);
+  const externalRating = getExternalRating(p);
+  const reviews = Number.isFinite(Number(p.externalReviewCount)) ? ` (${p.externalReviewCount})` : '';
+
+  if (status !== 'visited') {
+    const line = document.createElement('div');
+    line.className = 'rating-pending';
+    line.textContent = 'Rigobertus: pendent visita';
+    meta.appendChild(line);
+
+    if (externalRating !== null) {
+      const ext = document.createElement('div');
+      ext.className = 'rating-sub';
+      ext.textContent = `Referència externa: ${stars(externalRating)} ${externalRating.toFixed(1)}${reviews}`;
+      meta.appendChild(ext);
+    }
+
     return meta;
   }
 
-  const reviews = Number.isFinite(Number(p.externalReviewCount)) ? ` (${p.externalReviewCount})` : '';
-  meta.textContent = `${stars(rating)} ${rating.toFixed(1)}${reviews}`;
+  if (rigRating === null) {
+    const line = document.createElement('div');
+    line.className = 'rating-pending';
+    line.textContent = '📝 Pendent d’emetre valoració Rigobertus';
+    meta.appendChild(line);
+
+    if (externalRating !== null) {
+      const ext = document.createElement('div');
+      ext.className = 'rating-sub';
+      ext.textContent = `Referència externa: ${stars(externalRating)} ${externalRating.toFixed(1)}${reviews}`;
+      meta.appendChild(ext);
+    }
+
+    return meta;
+  }
+
+  const main = document.createElement('div');
+  main.textContent = `Rigobertus: ${stars(rigRating)} ${rigRating.toFixed(1)}`;
+  meta.appendChild(main);
+
+  if (externalRating !== null) {
+    const ext = document.createElement('div');
+    ext.className = 'rating-sub';
+    ext.textContent = `Externa: ${stars(externalRating)} ${externalRating.toFixed(1)}${reviews}`;
+    meta.appendChild(ext);
+  }
+
   return meta;
 }
 
@@ -386,13 +446,27 @@ function createPopupNode(p) {
   container.appendChild(document.createTextNode(safeText(p.city, '')));
   container.appendChild(document.createElement('br'));
 
-  const rating = getDisplayRating(p);
-  if (rating !== null) {
-    container.appendChild(document.createTextNode(`${stars(rating)} ${rating.toFixed(1)}`));
+  const popupStatus = getPlaceStatus(p);
+  const popupRigRating = getRigobertusRating(p);
+  const popupExternalRating = getExternalRating(p);
+
+  if (popupStatus !== 'visited') {
+    container.appendChild(document.createTextNode('Rigobertus: pendent visita'));
+    container.appendChild(document.createElement('br'));
+  } else if (popupRigRating === null) {
+    container.appendChild(document.createTextNode('Rigobertus: pendent valoració'));
+    container.appendChild(document.createElement('br'));
+  } else {
+    container.appendChild(document.createTextNode(`Rigobertus: ${stars(popupRigRating)} ${popupRigRating.toFixed(1)}`));
     container.appendChild(document.createElement('br'));
   }
 
-  const status = getPlaceStatus(p);
+  if (popupExternalRating !== null) {
+    container.appendChild(document.createTextNode(`Externa: ${stars(popupExternalRating)} ${popupExternalRating.toFixed(1)}`));
+    container.appendChild(document.createElement('br'));
+  }
+
+  const status = popupStatus;
   const statusLine = document.createElement('span');
   statusLine.textContent = `${statusEmoji(status)} ${statusLabel(status)}`;
   container.appendChild(statusLine);
@@ -457,7 +531,15 @@ function focusPlace(placeId, options = {}) {
     history.replaceState({}, '', `?place=${encodeURIComponent(safeId)}`);
   }
 
+  featuredPlaceId = safeId;
+  applyFeaturedCard(safeId);
   highlightPlaceCard(safeId);
+
+  const place = places.find((item) => normalizePlaceId(item.id) === safeId);
+  if (place) {
+    setStatus(`Mostrant fitxa compartida: ${safeText(place.name, 'lloc')}`);
+  }
+
   pendingPlaceId = null;
   return true;
 }
@@ -524,6 +606,7 @@ function render() {
   count.textContent = `${filtered.length} llocs`;
   list.innerHTML = '';
   filtered.forEach((p) => list.appendChild(card(p)));
+  applyFeaturedCard(featuredPlaceId);
   renderMap(filtered);
 }
 
@@ -539,6 +622,7 @@ async function loadPlaces() {
 
   places = data;
   pendingPlaceId = getPlaceParamFromUrl() || null;
+  featuredPlaceId = pendingPlaceId;
   clearFilters();
   fillFilters();
   render();
@@ -598,7 +682,14 @@ async function init() {
 
   window.addEventListener('popstate', () => {
     const placeId = getPlaceParamFromUrl();
-    if (placeId) focusPlace(placeId, { openPopup: true, updateUrl: false });
+    if (placeId) {
+      focusPlace(placeId, { openPopup: true, updateUrl: false });
+      return;
+    }
+
+    featuredPlaceId = null;
+    applyFeaturedCard(null);
+    setStatus('');
   });
 
   [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
