@@ -78,8 +78,8 @@
   {
     "id": "teke-tumateke-taco-bar",
     "name": "Teke-Tumateke Taco Bar",
-    "lat": null,
-    "lng": null,
+    "lat": 41.969585699999996,
+    "lng": 2.8182047,
     "city": "Girona",
     "category": "restaurant",
     "tags": [
@@ -87,14 +87,15 @@
       "pendent",
       "sopar"
     ],
-    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Teke-Tumateke+Taco+Bar+Girona",
-    "notes": "Pendent d'anar-hi (proposta del grup).",
+    "mapsUrl": "https://maps.google.com/?q=41.969585699999996,2.8182047",
+    "notes": "Auto-resolt Places. Query: Teke-Tumateke Taco Bar Girona. Address: Carrer Narcís Blanch, 32, 17003 Girona, Spain",
     "status": "pending",
     "planned": true,
-    "externalRating": null,
-    "externalReviewCount": null,
+    "externalRating": 4.9,
+    "externalReviewCount": 245,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [],
+    "placeId": "ChIJa5QtyrjnuhIR-dR7XM_5ev8"
   },
   {
     "id": "restaurant-lescabetx",
