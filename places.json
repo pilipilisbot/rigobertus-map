@@ -250,5 +250,23 @@
     "status": "visited",
     "externalRating": 4.9,
     "externalReviewCount": 671
+  },
+  {
+    "id": "cipresaia-girona",
+    "name": "Cipresaia",
+    "lat": null,
+    "lng": null,
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Cipresaia+Girona",
+    "notes": "Afegit des del grup. Pendent confirmar fitxa exacta de Google Places.",
+    "status": "visited",
+    "externalRating": null,
+    "externalReviewCount": null,
+    "rigobertusRating": null,
+    "photos": []
   }
 ]
