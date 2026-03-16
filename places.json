@@ -252,21 +252,22 @@
     "externalReviewCount": 671
   },
   {
-    "id": "cipresaia-girona",
-    "name": "Cipresaia",
-    "lat": null,
-    "lng": null,
+    "id": "restaurant-cipresaia-girona",
+    "name": "Restaurant Cipresaia",
+    "lat": 41.9850323,
+    "lng": 2.8254912,
     "city": "Girona",
     "category": "restaurant",
     "tags": [
       "rigobertus"
     ],
-    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Cipresaia+Girona",
-    "notes": "Afegit des del grup. Pendent confirmar fitxa exacta de Google Places.",
+    "mapsUrl": "https://maps.google.com/?q=41.9850323,2.8254912",
+    "notes": "Validat amb Google Places: Carrer Bonaventura Carreras i Peralta 5, 17004 Girona.",
     "status": "visited",
-    "externalRating": null,
-    "externalReviewCount": null,
+    "externalRating": 4.5,
+    "externalReviewCount": 568,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [],
+    "placeId": "ChIJeURx_6jnuhIRO7uc5fdnYKQ"
   }
 ]
