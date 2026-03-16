@@ -187,6 +187,20 @@ function matches(p) {
   return true;
 }
 
+function getPlaceMapsUrl(place) {
+  const placeName = safeText(place?.name, '');
+  const placeCity = safeText(place?.city, '');
+  const query = [placeName, placeCity].filter(Boolean).join(' ').trim();
+
+  if (!query) return safeHttpUrl(place?.mapsUrl);
+
+  const params = new URLSearchParams({ api: '1', query });
+  const placeId = safeText(place?.placeId, '');
+  if (placeId) params.set('query_place_id', placeId);
+
+  return `https://www.google.com/maps/search/?${params.toString()}`;
+}
+
 function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
   const link = document.createElement('a');
   link.href = safeHttpUrl(url);
@@ -311,7 +325,7 @@ function renderFeaturedPlace() {
 
   const links = document.createElement('p');
   links.className = 'featured-links';
-  links.appendChild(buildMapsLink(place.mapsUrl));
+  links.appendChild(buildMapsLink(getPlaceMapsUrl(place)));
   links.appendChild(document.createTextNode(' · '));
   links.appendChild(buildPlaceLink(safeId, 'Copiar/obrir enllaç de fitxa'));
 
@@ -445,7 +459,7 @@ function card(p) {
 
   const links = document.createElement('div');
   links.className = 'links';
-  links.appendChild(buildMapsLink(p.mapsUrl));
+  links.appendChild(buildMapsLink(getPlaceMapsUrl(p)));
   if (safeId) {
     links.appendChild(document.createTextNode(' · '));
     links.appendChild(buildPlaceLink(safeId, 'Compartir fitxa'));
@@ -527,7 +541,7 @@ function createPopupNode(p) {
     container.appendChild(document.createTextNode(' · '));
   }
 
-  container.appendChild(buildMapsLink(p.mapsUrl, 'Google Maps'));
+  container.appendChild(buildMapsLink(getPlaceMapsUrl(p), 'Google Maps'));
 
   if (safeId) {
     container.appendChild(document.createTextNode(' · '));
