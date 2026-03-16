@@ -54,24 +54,17 @@ function buildPlaceShareUrl(placeId) {
   return url.toString();
 }
 
-function applyFeaturedCard(placeId) {
-  const cards = document.querySelectorAll('.card.card-featured');
-  cards.forEach((card) => card.classList.remove('card-featured'));
-
-  const safeId = normalizePlaceId(placeId);
-  if (!safeId) return;
-
-  const target = document.getElementById(`place-${safeId}`);
-  if (target) target.classList.add('card-featured');
-}
-
-function highlightPlaceCard(placeId) {
+function highlightPlaceCard(placeId, options = {}) {
+  const { scroll = false } = options;
   const safeId = normalizePlaceId(placeId);
   if (!safeId) return;
   const target = document.getElementById(`place-${safeId}`);
   if (!target) return;
 
-  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (scroll) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   target.classList.add('card-highlight');
   setTimeout(() => target.classList.remove('card-highlight'), 1400);
 }
@@ -327,7 +320,7 @@ function renderFeaturedPlace() {
   jump.textContent = 'Veure fitxa completa ↓';
   jump.addEventListener('click', (event) => {
     event.preventDefault();
-    highlightPlaceCard(safeId);
+    highlightPlaceCard(safeId, { scroll: true });
   });
 
   links.appendChild(document.createTextNode(' · '));
@@ -533,7 +526,7 @@ function createPopupNode(p) {
     internalLink.textContent = 'Veure fitxa';
     internalLink.addEventListener('click', (event) => {
       event.preventDefault();
-      focusPlace(safeId, { openPopup: true });
+      focusPlace(safeId, { openPopup: true, scrollToCard: true });
     });
     container.appendChild(internalLink);
     container.appendChild(document.createTextNode(' · '));
@@ -556,7 +549,7 @@ function clearMarkers() {
 }
 
 function focusPlace(placeId, options = {}) {
-  const { openPopup = true, updateUrl = true } = options;
+  const { openPopup = true, updateUrl = true, scrollToCard = false } = options;
   const safeId = normalizePlaceId(placeId);
   if (!safeId) return false;
 
@@ -582,8 +575,7 @@ function focusPlace(placeId, options = {}) {
 
   featuredPlaceId = safeId;
   renderFeaturedPlace();
-  applyFeaturedCard(safeId);
-  highlightPlaceCard(safeId);
+  highlightPlaceCard(safeId, { scroll: scrollToCard });
 
   const place = places.find((item) => normalizePlaceId(item.id) === safeId);
   if (place) {
@@ -646,10 +638,6 @@ function render() {
   const filtered = places
     .filter(matches)
     .sort((a, b) => {
-      const fa = normalizePlaceId(a.id) === normalizePlaceId(featuredPlaceId) ? 0 : 1;
-      const fb = normalizePlaceId(b.id) === normalizePlaceId(featuredPlaceId) ? 0 : 1;
-      if (fa !== fb) return fa - fb;
-
       const order = { wishlist: 0, visited: 1 };
       const sa = order[getPlaceStatus(a)] ?? 9;
       const sb = order[getPlaceStatus(b)] ?? 9;
@@ -661,7 +649,6 @@ function render() {
   list.innerHTML = '';
   filtered.forEach((p) => list.appendChild(card(p)));
   renderFeaturedPlace();
-  applyFeaturedCard(featuredPlaceId);
   renderMap(filtered);
 }
 
@@ -744,7 +731,6 @@ async function init() {
 
     featuredPlaceId = null;
     renderFeaturedPlace();
-    applyFeaturedCard(null);
     setStatus('');
   });
 
