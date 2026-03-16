@@ -14,8 +14,8 @@
     "notes": "Afegit des del grup: visita del dijous 12 de març.",
     "status": "visited",
     "visitedAt": "2026-03-12",
-    "externalRating": null,
-    "externalReviewCount": null,
+    "externalRating": 4.1,
+    "externalReviewCount": 3610,
     "rigobertusRating": null,
     "photos": [
       "photos/bistrot/01.jpg",
@@ -41,8 +41,8 @@
     "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Ditifet%20Girona",
     "notes": "Afegit des del grup.",
     "status": "visited",
-    "externalRating": null,
-    "externalReviewCount": null,
+    "externalRating": 4.6,
+    "externalReviewCount": 531,
     "rigobertusRating": null,
     "photos": [
       "photos/ditifet/01.jpg",
@@ -68,8 +68,8 @@
     ],
     "mapsUrl": "https://www.google.com/maps/search/?api=1&query=La+Menjoteca+Gualta",
     "notes": "Afegit des del grup (pendent de confirmar coordenades exactes).",
-    "externalRating": null,
-    "externalReviewCount": null,
+    "externalRating": 4.7,
+    "externalReviewCount": 258,
     "rigobertusRating": null,
     "photos": [],
     "status": "visited",
@@ -110,7 +110,9 @@
     "mapsUrl": "https://maps.google.com/?q=41.9852701,2.8227466999999997",
     "notes": "Auto-resolt Places. Query: Restaurant l'Escabetx Girona. Address: Carrer Anselm Clavé, 24, 17001 Girona, Spain",
     "placeId": "ChIJiVDgZsHnuhIR_TJFHdLDtD0",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.8,
+    "externalReviewCount": 598
   },
   {
     "id": "ca-la-pilar",
@@ -125,7 +127,9 @@
     "mapsUrl": "https://maps.google.com/?q=42.013901,2.827124",
     "notes": "Auto-resolt Places. Query: Restaurant Ca la Pilar Girona. Address: Carrer Pont Major, 124, 17840 Girona, Spain",
     "placeId": "ChIJTyjI_E_muhIRfD3F9IiIp4E",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.6,
+    "externalReviewCount": 464
   },
   {
     "id": "sao-restaurante",
@@ -141,7 +145,9 @@
     "notes": "Auto-resolt Places. Query: Sao Restaurante Girona. Address: Carrer Estret, 3, 17110 Fonteta, Girona, Spain",
     "placeId": "ChIJ3WpsFOz_uhIR7O-kZfhlrpQ",
     "status": "pending",
-    "planned": true
+    "planned": true,
+    "externalRating": 4.9,
+    "externalReviewCount": 437
   },
   {
     "id": "taj-indian-restaurant",
@@ -156,7 +162,9 @@
     "mapsUrl": "https://maps.google.com/?q=41.9848348,2.8254074",
     "notes": "Auto-resolt Places. Query: Taj Indian Restaurant Girona. Address: Carrer de la Cort Reial, 6, 17004 Girona, Spain",
     "placeId": "ChIJN_xenefmuhIR1qmBt_A-RTk",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.4,
+    "externalReviewCount": 918
   },
   {
     "id": "monki-restaurant",
@@ -171,7 +179,9 @@
     "mapsUrl": "https://maps.google.com/?q=41.9752623,3.0007832999999997",
     "notes": "Auto-resolt Places. Query: Monki Restaurant Girona. Address: Carrer Vilanova, 1, 17121 Monells, Girona, Spain",
     "placeId": "ChIJ0ZgdBkb7uhIR_ujDwaAkdKI",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.6,
+    "externalReviewCount": 404
   },
   {
     "id": "restaurant-mondo",
@@ -186,7 +196,9 @@
     "mapsUrl": "https://maps.google.com/?q=41.959862099999995,3.0372413",
     "notes": "Auto-resolt Places. Query: Restaurant Mondo La Bisbal d'Emporda. Address: Carrer Cavallers, 22, 17100 La Bisbal d'Empordà, Girona, Spain",
     "placeId": "ChIJoy_4o0r5uhIRb2PPDaAPTY0",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.6,
+    "externalReviewCount": 554
   },
   {
     "id": "toc-de-vi",
@@ -201,7 +213,9 @@
     "mapsUrl": "https://maps.google.com/?q=42.0840314,2.9871311",
     "notes": "Auto-resolt Places. Query: Restaurant Toc de Vi Girona. Address: Plaça de l'Església, 17144 Colomers, Girona, Spain",
     "placeId": "ChIJi7SGQcLxuhIRGWS213Hv9ok",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.9,
+    "externalReviewCount": 216
   },
   {
     "id": "la-farinera-restaurant",
@@ -216,7 +230,9 @@
     "mapsUrl": "https://maps.google.com/?q=41.981415899999995,2.8162645",
     "notes": "Auto-resolt Places. Query: La Farinera Restaurant Girona. Address: Carrer de Santa Eugènia, 42, 17005 Girona, Spain",
     "placeId": "ChIJFeURF4HnuhIRsiiMs_mx7yI",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.8,
+    "externalReviewCount": 164
   },
   {
     "id": "birrot",
@@ -231,6 +247,8 @@
     "mapsUrl": "https://maps.google.com/?q=42.0731537,3.0113057999999997",
     "notes": "Auto-resolt Places. Query: Birrot Girona. Address: Carrer la Creu, 5, 17143 Jafre, Girona, Spain",
     "placeId": "ChIJJZwyNNHwuhIRJEx38Rr9qX4",
-    "status": "visited"
+    "status": "visited",
+    "externalRating": 4.9,
+    "externalReviewCount": 671
   }
 ]

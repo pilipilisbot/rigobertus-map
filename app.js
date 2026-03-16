@@ -433,11 +433,6 @@ function card(p) {
 
   el.appendChild(buildRatingMeta(p));
 
-  const metaCoords = document.createElement('div');
-  metaCoords.className = 'meta';
-  metaCoords.textContent = `${p.lat ?? '-'}, ${p.lng ?? '-'}`;
-  el.appendChild(metaCoords);
-
   if (status === 'visited' && p.visitedAt) {
     const visitMeta = document.createElement('div');
     visitMeta.className = 'meta';
