@@ -474,5 +474,27 @@
     "tags": [
       "rigobertus"
     ]
+  },
+  {
+    "id": "xiringuito-olivia",
+    "name": "Xiringuito Olívia",
+    "lat": 42.1285459,
+    "lng": 3.1235872,
+    "city": "Sant Martí d'Empúries",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus",
+      "platja"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=42.1285459,3.1235872",
+    "notes": "Afegit via Google Places a petició del grup. Alias: Guingueta Olivia. Address: Platja del Rec, 17130 Sant Martí d'Empúries, Girona, Spain",
+    "status": "visited",
+    "visitedAt": "2026-03-17",
+    "externalRating": 4.2,
+    "externalReviewCount": 943,
+    "rigobertusRating": null,
+    "photos": [],
+    "placeId": "ChIJISYvR_NfuhIRV6DEUwQONAY",
+    "website": "https://cutt.ly/Reserv_Olivia"
   }
 ]
