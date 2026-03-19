@@ -414,7 +414,10 @@
     "externalRating": 4.6,
     "externalReviewCount": 324,
     "rigobertusRating": null,
-    "photos": [],
+    "photos": [
+      "photos/a4mans/01.jpg",
+      "photos/a4mans/02.jpg"
+    ],
     "tags": [
       "rigobertus"
     ]
