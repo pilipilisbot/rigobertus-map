@@ -155,7 +155,7 @@
     "name": "Saó Restaurant by Vicenç Fajardo",
     "lat": 41.9501724,
     "lng": 3.0579001,
-    "city": "17110 Fonteta",
+    "city": "Fonteta",
     "category": "restaurant",
     "tags": [
       "rigobertus"
@@ -192,7 +192,7 @@
     "name": "MONKI RESTAURANT",
     "lat": 41.9752623,
     "lng": 3.0007832999999997,
-    "city": "17121 Monells",
+    "city": "Monells",
     "category": "restaurant",
     "tags": [
       "rigobertus"
@@ -209,7 +209,7 @@
     "name": "Restaurant Mondo",
     "lat": 41.959862099999995,
     "lng": 3.0372413,
-    "city": "17100 La Bisbal d'Empordà",
+    "city": "La Bisbal d'Empordà",
     "category": "restaurant",
     "tags": [
       "rigobertus"
@@ -233,7 +233,7 @@
     "name": "Toc de Vi",
     "lat": 42.0840314,
     "lng": 2.9871311,
-    "city": "17144 Colomers",
+    "city": "Colomers",
     "category": "restaurant",
     "tags": [
       "rigobertus"
@@ -269,7 +269,7 @@
     "name": "El Birrot",
     "lat": 42.0731537,
     "lng": 3.0113057999999997,
-    "city": "17143 Jafre",
+    "city": "Jafre",
     "category": "bar",
     "tags": [
       "rigobertus"
