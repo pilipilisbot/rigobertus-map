@@ -513,5 +513,22 @@
     "lng": 2.8253432,
     "externalRating": 4.4,
     "externalReviewCount": 491
+  },
+  {
+    "id": "brots-de-vi-girona",
+    "name": "Brots de Vi",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9847092,2.8254211",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJGfUwg-fmuhIR6bSapbD4kT4",
+    "lat": 41.9847092,
+    "lng": 2.8254211,
+    "externalRating": 4.4,
+    "externalReviewCount": 2303
   }
 ]
