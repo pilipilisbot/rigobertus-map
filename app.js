@@ -344,7 +344,7 @@ function renderFeaturedPlace() {
   closeBtn.className = 'featured-close';
   closeBtn.setAttribute('aria-label', 'Desactivar fitxa seleccionada');
   closeBtn.title = 'Desactivar fitxa';
-  closeBtn.textContent = '✕';
+  closeBtn.textContent = '✕ Desactivar';
   closeBtn.addEventListener('click', () => clearSelectedPlace());
   header.appendChild(closeBtn);
 
