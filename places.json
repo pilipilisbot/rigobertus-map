@@ -496,5 +496,22 @@
     "photos": [],
     "placeId": "ChIJISYvR_NfuhIRV6DEUwQONAY",
     "website": "https://cutt.ly/Reserv_Olivia"
+  },
+  {
+    "id": "la-tabarra-girona-girona",
+    "name": "La Tabarra Girona",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9856395,2.8253432",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJHTkBjarnuhIRh1Z8rvJeyvQ",
+    "lat": 41.9856395,
+    "lng": 2.8253432,
+    "externalRating": 4.4,
+    "externalReviewCount": 491
   }
 ]
