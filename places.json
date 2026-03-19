@@ -393,7 +393,9 @@
     "externalRating": 4.6,
     "externalReviewCount": 783,
     "rigobertusRating": null,
-    "photos": [],
+    "photos": [
+      "photos/pocavergonya-bistro/01.jpg"
+    ],
     "tags": [
       "rigobertus"
     ]
