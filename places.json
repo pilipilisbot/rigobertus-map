@@ -74,7 +74,9 @@
     "photos": [
       "photos/menjoteca/01.jpg",
       "photos/menjoteca/02.jpg",
-      "photos/menjoteca/03.jpg"
+      "photos/menjoteca/03.jpg",
+      "photos/menjoteca/04.jpg",
+      "photos/menjoteca/05.jpg"
     ],
     "status": "visited",
     "visitedAt": "2026-03-15"
