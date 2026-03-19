@@ -483,24 +483,34 @@ function card(p) {
   el.appendChild(top);
 
   const metaMain = document.createElement('div');
-  metaMain.className = 'meta';
-  metaMain.textContent = `${safeText(p.city)}`;
+  metaMain.className = 'meta card-section';
+  metaMain.textContent = safeText(p.city);
   el.appendChild(metaMain);
 
-  el.appendChild(buildRatingMeta(p));
+  const rating = buildRatingMeta(p);
+  rating.classList.add('card-section');
+  el.appendChild(rating);
 
-  if (status === 'visited' && p.visitedAt) {
-    const visitMeta = document.createElement('div');
-    visitMeta.className = 'meta';
-    visitMeta.textContent = `Última visita: ${safeText(p.visitedAt)}`;
-    el.appendChild(visitMeta);
-  }
+  const visitMeta = document.createElement('div');
+  visitMeta.className = 'meta card-section';
+  visitMeta.textContent = status === 'visited' && p.visitedAt
+    ? `Última visita: ${safeText(p.visitedAt)}`
+    : 'Última visita: —';
+  el.appendChild(visitMeta);
 
   const photoStrip = buildPhotos(p);
-  if (photoStrip) el.appendChild(photoStrip);
+  if (photoStrip) {
+    photoStrip.classList.add('card-section');
+    el.appendChild(photoStrip);
+  } else {
+    const noPhotos = document.createElement('div');
+    noPhotos.className = 'meta card-empty card-section';
+    noPhotos.textContent = 'Fotos: —';
+    el.appendChild(noPhotos);
+  }
 
   const links = document.createElement('div');
-  links.className = 'links';
+  links.className = 'links card-section';
   links.appendChild(buildMapsLink(getPlaceMapsUrl(p)));
   if (safeId) {
     links.appendChild(document.createTextNode(' · '));
@@ -508,19 +518,26 @@ function card(p) {
   }
   el.appendChild(links);
 
-  if (p.notes) {
-    const notes = document.createElement('p');
-    notes.textContent = safeText(p.notes, '');
-    el.appendChild(notes);
-  }
+  const notes = document.createElement('p');
+  notes.className = 'card-notes card-section';
+  notes.textContent = safeText(p.notes, 'Notes: —');
+  el.appendChild(notes);
 
   const tags = document.createElement('div');
-  tags.className = 'tags';
-  for (const tagValue of p.tags || []) {
-    const tag = document.createElement('span');
-    tag.className = 'tag';
-    tag.textContent = `#${safeText(tagValue, '')}`;
-    tags.appendChild(tag);
+  tags.className = 'tags card-section';
+  const values = Array.isArray(p.tags) ? p.tags.filter(Boolean) : [];
+  if (!values.length) {
+    const emptyTag = document.createElement('span');
+    emptyTag.className = 'tag tag-empty';
+    emptyTag.textContent = 'sense tags';
+    tags.appendChild(emptyTag);
+  } else {
+    for (const tagValue of values) {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = `#${safeText(tagValue, '')}`;
+      tags.appendChild(tag);
+    }
   }
   el.appendChild(tags);
 

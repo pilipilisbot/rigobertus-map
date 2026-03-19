@@ -95,7 +95,7 @@
     ],
     "mapsUrl": "https://maps.google.com/?q=41.969585699999996,2.8182047",
     "notes": "Auto-resolt Places. Query: Teke-Tumateke Taco Bar Girona. Address: Carrer Narcís Blanch, 32, 17003 Girona, Spain",
-    "status": "pending",
+    "status": "wishlist",
     "planned": true,
     "externalRating": 4.9,
     "externalReviewCount": 245,
@@ -163,7 +163,7 @@
     "mapsUrl": "https://maps.google.com/?q=41.9501724,3.0579001",
     "notes": "Auto-resolt Places. Query: Sao Restaurante Girona. Address: Carrer Estret, 3, 17110 Fonteta, Girona, Spain",
     "placeId": "ChIJ3WpsFOz_uhIR7O-kZfhlrpQ",
-    "status": "pending",
+    "status": "wishlist",
     "planned": true,
     "externalRating": 4.9,
     "externalReviewCount": 437
@@ -529,7 +529,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9856395,2.8253432",
-    "status": "pending",
+    "status": "wishlist",
     "photos": [],
     "placeId": "ChIJHTkBjarnuhIRh1Z8rvJeyvQ",
     "lat": 41.9856395,
@@ -546,7 +546,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9847092,2.8254211",
-    "status": "pending",
+    "status": "wishlist",
     "photos": [],
     "placeId": "ChIJGfUwg-fmuhIR6bSapbD4kT4",
     "lat": 41.9847092,
