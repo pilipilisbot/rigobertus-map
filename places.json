@@ -71,7 +71,11 @@
     "externalRating": 4.7,
     "externalReviewCount": 258,
     "rigobertusRating": null,
-    "photos": [],
+    "photos": [
+      "photos/menjoteca/01.jpg",
+      "photos/menjoteca/02.jpg",
+      "photos/menjoteca/03.jpg"
+    ],
     "status": "visited",
     "visitedAt": "2026-03-15"
   },
