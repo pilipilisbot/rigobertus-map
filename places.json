@@ -270,7 +270,10 @@
     "placeId": "ChIJJZwyNNHwuhIRJEx38Rr9qX4",
     "status": "visited",
     "externalRating": 4.9,
-    "externalReviewCount": 671
+    "externalReviewCount": 671,
+    "photos": [
+      "photos/birrot/01.jpg"
+    ]
   },
   {
     "id": "restaurant-cipresaia-girona",
