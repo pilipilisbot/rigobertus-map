@@ -146,7 +146,9 @@
     "externalRating": 4.6,
     "externalReviewCount": 464,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [
+      "photos/ca-la-pilar/01.jpg"
+    ]
   },
   {
     "id": "sao-restaurante",
