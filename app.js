@@ -294,6 +294,28 @@ function buildRatingMeta(p) {
   return meta;
 }
 
+function clearSelectedPlace(options = {}) {
+  const { updateUrl = true } = options;
+
+  featuredPlaceId = null;
+  pendingPlaceId = null;
+
+  for (const marker of markers) {
+    const popup = marker.getPopup();
+    if (popup && popup.isOpen()) popup.remove();
+  }
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('place');
+    const query = url.searchParams.toString();
+    history.replaceState({}, '', `${url.pathname}${query ? `?${query}` : ''}`);
+  }
+
+  renderFeaturedPlace();
+  setStatus('');
+}
+
 function renderFeaturedPlace() {
   if (!featuredPlace) return;
 
@@ -310,9 +332,23 @@ function renderFeaturedPlace() {
   featuredPlace.hidden = false;
   featuredPlace.innerHTML = '';
 
+  const header = document.createElement('div');
+  header.className = 'featured-head';
+
   const title = document.createElement('h2');
   title.textContent = `📌 Fitxa compartida: ${safeText(place.name, 'Lloc')}`;
-  featuredPlace.appendChild(title);
+  header.appendChild(title);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'featured-close';
+  closeBtn.setAttribute('aria-label', 'Desactivar fitxa seleccionada');
+  closeBtn.title = 'Desactivar fitxa';
+  closeBtn.textContent = '✕';
+  closeBtn.addEventListener('click', () => clearSelectedPlace());
+  header.appendChild(closeBtn);
+
+  featuredPlace.appendChild(header);
 
   const meta = document.createElement('p');
   meta.className = 'featured-meta';
@@ -744,9 +780,7 @@ async function init() {
       return;
     }
 
-    featuredPlaceId = null;
-    renderFeaturedPlace();
-    setStatus('');
+    clearSelectedPlace({ updateUrl: false });
   });
 
   [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
