@@ -16,6 +16,7 @@ header h1{margin:.2rem 0}
 .featured-rating{margin:.28rem 0 .3rem 0}
 .featured-links{margin:0;font-size:.92rem}
 .featured-links a{color:#b9d0ff}
+.featured-photos{margin:.45rem 0 .55rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem}
 .card{background:#141b33;border:1px solid #2d365c;border-radius:.8rem;padding:.8rem;position:relative}
 .card-highlight{outline:3px solid #7aa2ff;outline-offset:2px;transition:outline-color .2s ease;animation:cardPulse 1.2s ease}

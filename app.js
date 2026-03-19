@@ -323,6 +323,12 @@ function renderFeaturedPlace() {
   rating.classList.add('featured-rating');
   featuredPlace.appendChild(rating);
 
+  const featuredPhotos = buildPhotos(place);
+  if (featuredPhotos) {
+    featuredPhotos.classList.add('featured-photos');
+    featuredPlace.appendChild(featuredPhotos);
+  }
+
   const links = document.createElement('p');
   links.className = 'featured-links';
   links.appendChild(buildMapsLink(getPlaceMapsUrl(place)));
