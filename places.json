@@ -571,5 +571,23 @@
     "lng": 2.8187121,
     "externalRating": 4.8,
     "externalReviewCount": 414
+  },
+  {
+    "id": "sabor-a-brasa-palafrugell",
+    "name": "Sabor a Brasa",
+    "city": "Palafrugell",
+    "category": "restaurant",
+    "tags": [
+      "palafrugell",
+      "pendent"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9136307,3.1538627",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJDQOacyNVuhIRQn7b-KEIPnU",
+    "lat": 41.9136307,
+    "lng": 3.1538627,
+    "externalRating": 4.8,
+    "externalReviewCount": 226
   }
 ]
