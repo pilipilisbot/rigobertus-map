@@ -589,5 +589,24 @@
     "lng": 3.1538627,
     "externalRating": 4.8,
     "externalReviewCount": 226
+  },
+  {
+    "id": "can-mascort-quart",
+    "name": "Can Mascort",
+    "city": "Quart",
+    "category": "restaurant",
+    "tags": [
+      "pendent",
+      "quart",
+      "txuleton"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9641382,2.8632119",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJCdqlTwfkuhIRDJohAHCPXPM",
+    "lat": 41.9641382,
+    "lng": 2.8632119,
+    "externalRating": 4.3,
+    "externalReviewCount": 791
   }
 ]
