@@ -553,5 +553,23 @@
     "lng": 2.8254211,
     "externalRating": 4.4,
     "externalReviewCount": 2303
+  },
+  {
+    "id": "restaurant-l-origen-girona-girona",
+    "name": "Restaurant L’ Origen Girona",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "girona",
+      "pendent"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9853588,2.8187121",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJpQJ0ucDnuhIR7fxvJxwfdms",
+    "lat": 41.9853588,
+    "lng": 2.8187121,
+    "externalRating": 4.8,
+    "externalReviewCount": 414
   }
 ]
