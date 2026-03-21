@@ -40,6 +40,23 @@ Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
 ]
 ```
 
+## Validació local de dades
+
+Abans de pujar canvis a `places.json`, valida'ls en local:
+
+```bash
+npm install
+npm run validate:places
+```
+
+La validació comprova:
+
+- schema bàsic i tipus de camps
+- `id` únic (sense duplicats)
+- rangs de coordenades (`lat/lng`) i valoracions (`0..5`)
+
+A CI també s'executa automàticament a cada PR amb `.github/workflows/validate-places.yml`.
+
 ## Publicació
 
 La workflow `.github/workflows/pages.yml` desplega automàticament a GitHub Pages quan fas push a `main`.
