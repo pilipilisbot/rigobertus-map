@@ -29,7 +29,15 @@ Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
     "category": "restaurant",
     "tags": ["top", "sopar"],
     "mapsUrl": "https://maps.google.com/?q=41.98,2.82",
-    "notes": "Opcional",
+    "notes": "Comentari editorial curt i llegible",
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Exemple, 1, Girona",
+        "rawNote": "Validat amb Google Places: Carrer Exemple, 1, Girona"
+      }
+    },
     "externalRating": 4.7,
     "externalReviewCount": 213,
     "rigobertusRating": 4.4,
@@ -63,6 +71,14 @@ La validació comprova:
 - schema bàsic i tipus de camps
 - `id` únic (sense duplicats)
 - rangs de coordenades (`lat/lng`) i valoracions (`0..5`)
+
+## Guia ràpida d'estil per a `notes`
+
+- **To:** natural i útil per a qui llegeix la fitxa (no text tècnic)
+- **Llargada:** idealment 1 frase curta (aprox. 8-20 paraules)
+- **Idioma:** català, mantenint estil consistent entre fitxes
+- **Evita a `notes`:** queries, adreces completes d'importació, o textos de depuració
+- **Metadades tècniques:** guarda-les a `sourceMeta` (p. ex. `sourceMeta.import`)
 
 A CI també s'executa automàticament a cada PR amb `.github/workflows/validate-places.yml`.
 

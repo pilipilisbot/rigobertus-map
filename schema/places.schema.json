@@ -44,6 +44,25 @@
       "photos": {
         "type": "array",
         "items": { "type": "string", "minLength": 1 }
+      },
+      "sourceMeta": {
+        "type": "object",
+        "description": "Technical source/import metadata not intended for default card display",
+        "additionalProperties": true,
+        "properties": {
+          "import": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "provider": { "type": "string" },
+              "method": { "type": "string" },
+              "query": { "type": "string" },
+              "address": { "type": "string" },
+              "alias": { "type": "string" },
+              "rawNote": { "type": "string" }
+            }
+          }
+        }
       }
     }
   }
