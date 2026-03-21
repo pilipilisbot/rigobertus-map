@@ -66,6 +66,11 @@ La validació comprova:
 
 A CI també s'executa automàticament a cada PR amb `.github/workflows/validate-places.yml`.
 
+## Governança editorial i canvis de dades
+
+- Guia editorial + checklist per noves entrades: [`docs/editorial-governance.md`](docs/editorial-governance.md)
+- Plantilla de PR reutilitzable per canvis de dades: [`.github/pull_request_template.md`](.github/pull_request_template.md)
+
 ## Publicació
 
 La workflow `.github/workflows/pages.yml` desplega automàticament a GitHub Pages quan fas push a `main`.
