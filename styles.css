@@ -27,6 +27,7 @@ header h1{margin:.2rem 0}
 .card-empty{opacity:.7;font-style:italic}
 .card-notes{margin:0;color:#dbe3ff}
 .card-highlight{outline:3px solid #7aa2ff;outline-offset:2px;transition:outline-color .2s ease;animation:cardPulse 1.2s ease}
+.card-selected{border-color:#7aa2ff;box-shadow:0 0 0 2px rgba(122,162,255,.25),0 8px 24px rgba(34,56,120,.35)}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem;margin:.05rem 0 .5rem}
 .card h3{margin:0;font-size:1.06rem;line-height:1.25}
 .status-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem;font-weight:800;letter-spacing:.02em;padding:.28rem .58rem;border-radius:999px;border:1px solid transparent;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
