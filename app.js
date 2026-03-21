@@ -20,6 +20,7 @@ let map;
 let markers = [];
 let modalPhotos = [];
 let modalIndex = 0;
+let modalTriggerElement = null;
 let markerById = new Map();
 let pendingPlaceId = null;
 let featuredPlaceId = null;
@@ -410,14 +411,23 @@ function renderModalPhoto() {
   updateModalControls();
 }
 
-function openImageModal(items, startIndex = 0) {
+function getModalFocusableElements() {
+  if (!imageModal) return [];
+
+  return Array.from(imageModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+    .filter((el) => !el.hasAttribute('disabled') && !el.hidden && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
+}
+
+function openImageModal(items, startIndex = 0, triggerElement = null) {
   if (!imageModal || !imageModalImg || !Array.isArray(items) || !items.length) return;
   modalPhotos = items;
   modalIndex = Math.max(0, Math.min(startIndex, items.length - 1));
+  modalTriggerElement = triggerElement instanceof HTMLElement ? triggerElement : (document.activeElement instanceof HTMLElement ? document.activeElement : null);
   renderModalPhoto();
   imageModal.hidden = false;
   imageModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  if (imageModalClose) imageModalClose.focus({ preventScroll: true });
 }
 
 function stepImageModal(delta) {
@@ -435,6 +445,11 @@ function closeImageModal() {
   modalIndex = 0;
   updateModalControls();
   document.body.style.overflow = '';
+
+  if (modalTriggerElement && modalTriggerElement.isConnected) {
+    modalTriggerElement.focus({ preventScroll: true });
+  }
+  modalTriggerElement = null;
 }
 
 function buildPhotos(p) {
@@ -460,7 +475,7 @@ function buildPhotos(p) {
     image.loading = 'lazy';
     image.alt = modalItems[index].alt;
 
-    button.addEventListener('click', () => openImageModal(modalItems, index));
+    button.addEventListener('click', () => openImageModal(modalItems, index, button));
     button.appendChild(image);
     wrap.appendChild(button);
   }
@@ -796,9 +811,47 @@ async function init() {
 
   window.addEventListener('keydown', (event) => {
     if (!imageModal || imageModal.hidden) return;
-    if (event.key === 'Escape') closeImageModal();
-    if (event.key === 'ArrowLeft') stepImageModal(-1);
-    if (event.key === 'ArrowRight') stepImageModal(1);
+
+    if (event.key === 'Tab') {
+      const focusable = getModalFocusableElements();
+      if (!focusable.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey) {
+        if (active === first || !imageModal.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !imageModal.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeImageModal();
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      stepImageModal(-1);
+      return;
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      stepImageModal(1);
+    }
   });
 
   window.addEventListener('popstate', () => {
