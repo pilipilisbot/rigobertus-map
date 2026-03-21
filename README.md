@@ -40,6 +40,15 @@ Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
 ]
 ```
 
+## Contracte canònic de fitxa
+
+Veure `docs/cards-spec.md` per la definició oficial de:
+
+- camps obligatoris i opcionals
+- catàleg d'estats vàlids (`wishlist | visited`)
+- ordre visual de la targeta
+- regles de consistència i validació
+
 ## Validació local de dades
 
 Abans de pujar canvis a `places.json`, valida'ls en local:
