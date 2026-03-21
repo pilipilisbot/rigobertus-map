@@ -25,6 +25,59 @@ let markerById = new Map();
 let pendingPlaceId = null;
 let featuredPlaceId = null;
 
+function writeUrl(url, historyMode = 'replace') {
+  const method = historyMode === 'push' ? 'pushState' : 'replaceState';
+  const query = url.searchParams.toString();
+  history[method]({}, '', `${url.pathname}${query ? `?${query}` : ''}`);
+}
+
+function setQueryParam(params, key, value) {
+  const text = safeText(value, '');
+  if (text) {
+    params.set(key, text);
+  } else {
+    params.delete(key);
+  }
+}
+
+function syncFiltersToUrl(historyMode = 'replace') {
+  const url = new URL(window.location.href);
+  setQueryParam(url.searchParams, 'q', q.value);
+  setQueryParam(url.searchParams, 'city', city.value);
+  setQueryParam(url.searchParams, 'minRating', minRating.value);
+  setQueryParam(url.searchParams, 'status', statusFilter.value);
+  writeUrl(url, historyMode);
+}
+
+function restoreFiltersFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+
+  q.value = params.get('q') || '';
+  city.value = params.get('city') || '';
+  minRating.value = params.get('minRating') || '';
+
+  const statusParam = params.get('status') || '';
+  statusFilter.value = statusParam === 'visited' || statusParam === 'wishlist' ? statusParam : '';
+
+  if (![...city.options].some((option) => option.value === city.value)) {
+    city.value = '';
+  }
+  if (![...minRating.options].some((option) => option.value === minRating.value)) {
+    minRating.value = '';
+  }
+}
+
+function updatePlaceInUrl(placeId, historyMode = 'replace') {
+  const url = new URL(window.location.href);
+  const safeId = normalizePlaceId(placeId);
+  if (safeId) {
+    url.searchParams.set('place', safeId);
+  } else {
+    url.searchParams.delete('place');
+  }
+  writeUrl(url, historyMode);
+}
+
 function prefersReducedMotion() {
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
@@ -252,7 +305,7 @@ function buildPlaceLink(placeId, label = 'Veure fitxa') {
     event.preventDefault();
     const id = normalizePlaceId(placeId);
     if (!id) return;
-    history.replaceState({}, '', `?place=${encodeURIComponent(id)}`);
+    updatePlaceInUrl(id, 'push');
     focusPlace(id, { openPopup: true, updateUrl: false });
   });
 
@@ -326,10 +379,7 @@ function clearSelectedPlace(options = {}) {
   }
 
   if (updateUrl) {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('place');
-    const query = url.searchParams.toString();
-    history.replaceState({}, '', `${url.pathname}${query ? `?${query}` : ''}`);
+    updatePlaceInUrl('', 'replace');
   }
 
   renderFeaturedPlace();
@@ -726,7 +776,7 @@ function focusPlace(placeId, options = {}) {
   }
 
   if (updateUrl) {
-    history.replaceState({}, '', `?place=${encodeURIComponent(safeId)}`);
+    updatePlaceInUrl(safeId, 'push');
   }
 
   featuredPlaceId = safeId;
@@ -826,6 +876,7 @@ async function loadPlaces() {
   featuredPlaceId = pendingPlaceId;
   clearFilters();
   fillFilters();
+  restoreFiltersFromUrl();
   render();
   setStatus('');
 }
@@ -920,6 +971,9 @@ async function init() {
   });
 
   window.addEventListener('popstate', () => {
+    restoreFiltersFromUrl();
+    render();
+
     const placeId = getPlaceParamFromUrl();
     if (placeId) {
       focusPlace(placeId, { openPopup: true, updateUrl: false });
@@ -929,7 +983,18 @@ async function init() {
     clearSelectedPlace({ updateUrl: false });
   });
 
-  [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
+  q.addEventListener('input', () => {
+    render();
+    syncFiltersToUrl('replace');
+  });
+  q.addEventListener('change', () => syncFiltersToUrl('push'));
+
+  [city, minRating, statusFilter].forEach((el) => {
+    el.addEventListener('change', () => {
+      render();
+      syncFiltersToUrl('push');
+    });
+  });
   retry.addEventListener('click', () => {
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
