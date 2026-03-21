@@ -33,7 +33,7 @@
       },
       "mapsUrl": { "type": "string", "format": "uri" },
       "notes": { "type": "string" },
-      "status": { "type": "string", "enum": ["wishlist", "visited", "pending"] },
+      "status": { "type": "string", "enum": ["wishlist", "visited"] },
       "planned": { "type": "boolean" },
       "visitedAt": { "type": "string", "format": "date" },
       "placeId": { "type": "string", "minLength": 1 },
