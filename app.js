@@ -21,8 +21,13 @@ let markers = [];
 let modalPhotos = [];
 let modalIndex = 0;
 let markerById = new Map();
+let visibleMarkerIds = new Set();
 let pendingPlaceId = null;
 let featuredPlaceId = null;
+let lastRenderSignature = '';
+let lastRenderDurationMs = 0;
+const SEARCH_DEBOUNCE_MS = 200;
+let searchDebounceTimer = null;
 
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
@@ -703,6 +708,8 @@ function renderMap(filtered) {
 }
 
 function render() {
+  const t0 = performance.now();
+
   const filtered = places
     .filter(matches)
     .sort((a, b) => {
@@ -714,10 +721,18 @@ function render() {
     });
 
   count.textContent = `${filtered.length} llocs`;
-  list.innerHTML = '';
-  filtered.forEach((p) => list.appendChild(card(p)));
+
+  const signature = filtered.map((p) => normalizePlaceId(p.id)).join('|');
+  if (signature !== lastRenderSignature) {
+    list.innerHTML = '';
+    filtered.forEach((p) => list.appendChild(card(p)));
+    lastRenderSignature = signature;
+  }
+
   renderFeaturedPlace();
   renderMap(filtered);
+
+  lastRenderDurationMs = performance.now() - t0;
 }
 
 async function loadPlaces() {
@@ -731,6 +746,8 @@ async function loadPlaces() {
   if (!Array.isArray(data)) throw new Error("places.json no té el format esperat (array)");
 
   places = data;
+  lastRenderSignature = '';
+  clearMarkers();
   pendingPlaceId = getPlaceParamFromUrl() || null;
   featuredPlaceId = pendingPlaceId;
   clearFilters();
@@ -800,7 +817,11 @@ async function init() {
     clearSelectedPlace({ updateUrl: false });
   });
 
-  [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
+  q.addEventListener('input', () => {
+    window.clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = window.setTimeout(render, SEARCH_DEBOUNCE_MS);
+  });
+  [city, minRating, statusFilter].forEach((el) => el.addEventListener('input', render));
   retry.addEventListener('click', () => {
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
