@@ -34,6 +34,8 @@
       <option value="wishlist">Per anar</option>
       <option value="visited">Visitats</option>
     </select>
+
+    <button id="clearFiltersBtn" class="clear-filters" type="button" aria-label="Netejar filtres de cerca">Netejar filtres</button>
   </section>
 
   <p class="legend" aria-label="Llegenda d'estat">
@@ -44,6 +46,11 @@
   <main>
     <p id="status" role="status" aria-live="polite"></p>
     <p id="count" aria-live="polite"></p>
+    <section id="emptyState" class="empty-state" hidden role="status" aria-live="polite" aria-atomic="true">
+      <h2>No hem trobat llocs amb aquests filtres</h2>
+      <p>Prova de baixar la valoració mínima, canviar la ciutat o netejar la cerca.</p>
+      <button id="emptyClearFiltersBtn" class="clear-filters" type="button">Netejar filtres</button>
+    </section>
     <section id="featuredPlace" class="featured-place" hidden aria-live="polite"></section>
     <div id="map" aria-label="Mapa de llocs"></div>
     <div id="list" class="grid"></div>
@@ -64,5 +71,48 @@
 
   <script src="https://unpkg.com/maplibre-gl@5.3.1/dist/maplibre-gl.js"></script>
   <script src="app.js"></script>
+  <script>
+    (() => {
+      const q = document.getElementById('q');
+      const city = document.getElementById('city');
+      const minRating = document.getElementById('minRating');
+      const statusFilter = document.getElementById('statusFilter');
+      const list = document.getElementById('list');
+      const count = document.getElementById('count');
+      const emptyState = document.getElementById('emptyState');
+      const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+      const emptyClearFiltersBtn = document.getElementById('emptyClearFiltersBtn');
+      if (!q || !city || !minRating || !statusFilter || !list || !count || !emptyState) return;
+
+      const hasActiveFilters = () => Boolean(q.value.trim() || city.value || minRating.value || statusFilter.value);
+
+      const clearFilters = () => {
+        q.value = '';
+        city.value = '';
+        minRating.value = '';
+        statusFilter.value = '';
+        q.dispatchEvent(new Event('input', { bubbles: true }));
+        city.dispatchEvent(new Event('input', { bubbles: true }));
+        minRating.dispatchEvent(new Event('input', { bubbles: true }));
+        statusFilter.dispatchEvent(new Event('input', { bubbles: true }));
+        q.focus();
+      };
+
+      const syncEmptyState = () => {
+        const zeroResults = /^0\s+llocs\b/i.test((count.textContent || '').trim()) || list.children.length === 0;
+        const active = hasActiveFilters();
+        emptyState.hidden = !zeroResults;
+        if (emptyClearFiltersBtn) emptyClearFiltersBtn.hidden = !active;
+      };
+
+      [q, city, minRating, statusFilter].forEach((el) => el.addEventListener('input', syncEmptyState));
+      clearFiltersBtn?.addEventListener('click', clearFilters);
+      emptyClearFiltersBtn?.addEventListener('click', clearFilters);
+
+      new MutationObserver(syncEmptyState).observe(list, { childList: true });
+      new MutationObserver(syncEmptyState).observe(count, { childList: true, characterData: true, subtree: true });
+      syncEmptyState();
+    })();
+  </script>
 </body>
 </html>
