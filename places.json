@@ -553,5 +553,60 @@
     "lng": 2.8254211,
     "externalRating": 4.4,
     "externalReviewCount": 2303
+  },
+  {
+    "id": "restaurant-l-origen-girona-girona",
+    "name": "Restaurant L’ Origen Girona",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "girona",
+      "pendent"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9853588,2.8187121",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJpQJ0ucDnuhIR7fxvJxwfdms",
+    "lat": 41.9853588,
+    "lng": 2.8187121,
+    "externalRating": 4.8,
+    "externalReviewCount": 414
+  },
+  {
+    "id": "sabor-a-brasa-palafrugell",
+    "name": "Sabor a Brasa",
+    "city": "Palafrugell",
+    "category": "restaurant",
+    "tags": [
+      "palafrugell",
+      "pendent"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9136307,3.1538627",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJDQOacyNVuhIRQn7b-KEIPnU",
+    "lat": 41.9136307,
+    "lng": 3.1538627,
+    "externalRating": 4.8,
+    "externalReviewCount": 226
+  },
+  {
+    "id": "can-mascort-quart",
+    "name": "Can Mascort",
+    "city": "Quart",
+    "category": "restaurant",
+    "tags": [
+      "pendent",
+      "quart",
+      "txuleton"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9641382,2.8632119",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJCdqlTwfkuhIRDJohAHCPXPM",
+    "lat": 41.9641382,
+    "lng": 2.8632119,
+    "externalRating": 4.3,
+    "externalReviewCount": 791
   }
 ]
