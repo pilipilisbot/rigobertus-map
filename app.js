@@ -78,6 +78,17 @@ function highlightPlaceCard(placeId, options = {}) {
   setTimeout(() => target.classList.remove('card-highlight'), 1400);
 }
 
+function syncSelectedCardState() {
+  const selectedId = normalizePlaceId(featuredPlaceId);
+  const cards = list ? list.querySelectorAll('.card[data-place-id]') : [];
+
+  cards.forEach((cardEl) => {
+    const isSelected = selectedId && cardEl.dataset.placeId === selectedId;
+    cardEl.classList.toggle('card-selected', Boolean(isSelected));
+    cardEl.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+  });
+}
+
 function safeHttpUrl(value) {
   if (!value) return '#';
   try {
@@ -322,6 +333,7 @@ function clearSelectedPlace(options = {}) {
   }
 
   renderFeaturedPlace();
+  syncSelectedCardState();
   setStatus('');
 }
 
@@ -487,7 +499,12 @@ function card(p) {
   const el = document.createElement('article');
   el.className = 'card';
   const safeId = normalizePlaceId(p.id);
-  if (safeId) el.id = `place-${safeId}`;
+  if (safeId) {
+    el.id = `place-${safeId}`;
+    el.dataset.placeId = safeId;
+    el.tabIndex = 0;
+    el.setAttribute('aria-selected', normalizePlaceId(featuredPlaceId) === safeId ? 'true' : 'false');
+  }
 
   const status = getPlaceStatus(p);
 
@@ -563,6 +580,27 @@ function card(p) {
     }
   }
   el.appendChild(tags);
+
+  if (safeId) {
+    const shouldIgnoreCardActivation = (event) => {
+      const interactive = event.target instanceof Element
+        ? event.target.closest('a, button, input, select, textarea, summary, [role="button"]')
+        : null;
+      return Boolean(interactive && el.contains(interactive));
+    };
+
+    el.addEventListener('click', (event) => {
+      if (shouldIgnoreCardActivation(event)) return;
+      focusPlace(safeId, { openPopup: true, scrollToCard: false });
+    });
+
+    el.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (shouldIgnoreCardActivation(event)) return;
+      event.preventDefault();
+      focusPlace(safeId, { openPopup: true, scrollToCard: false });
+    });
+  }
 
   return el;
 }
@@ -693,6 +731,7 @@ function focusPlace(placeId, options = {}) {
 
   featuredPlaceId = safeId;
   renderFeaturedPlace();
+  syncSelectedCardState();
   highlightPlaceCard(safeId, { scroll: scrollToCard });
 
   const place = places.find((item) => normalizePlaceId(item.id) === safeId);
@@ -767,6 +806,7 @@ function render() {
   count.textContent = `${filtered.length} llocs`;
   list.innerHTML = '';
   filtered.forEach((p) => list.appendChild(card(p)));
+  syncSelectedCardState();
   renderFeaturedPlace();
   renderMap(filtered);
 }
