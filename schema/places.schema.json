@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pilipilisbot.github.io/rigobertus-map/schema/places.schema.json",
+  "title": "Rigobertus places",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "name",
+      "lat",
+      "lng",
+      "city",
+      "category",
+      "tags",
+      "mapsUrl",
+      "status",
+      "externalRating",
+      "externalReviewCount"
+    ],
+    "properties": {
+      "id": { "type": "string", "minLength": 1, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+      "name": { "type": "string", "minLength": 1 },
+      "lat": { "type": ["number", "null"] },
+      "lng": { "type": ["number", "null"] },
+      "city": { "type": "string", "minLength": 1 },
+      "category": { "type": "string", "enum": ["restaurant", "bar"] },
+      "tags": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 },
+        "uniqueItems": true
+      },
+      "mapsUrl": { "type": "string", "format": "uri" },
+      "notes": { "type": "string" },
+      "status": { "type": "string", "enum": ["wishlist", "visited"] },
+      "planned": { "type": "boolean" },
+      "visitedAt": { "type": "string", "format": "date" },
+      "placeId": { "type": "string", "minLength": 1 },
+      "website": { "type": "string", "format": "uri" },
+      "externalRating": { "type": "number", "minimum": 0, "maximum": 5 },
+      "externalReviewCount": { "type": "integer", "minimum": 0 },
+      "rigobertusRating": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+      "photos": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
