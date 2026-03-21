@@ -2,6 +2,10 @@
 
 Mapa estàtic de llocs recomanats per publicar a GitHub Pages.
 
+## Per agents AI
+
+Si treballes amb agents AI en aquest repo, consulta primer `AGENTS.md` per convencions, qualitat i flux de treball.
+
 ## Com funciona
 
 - Les dades viuen a `places.json`
