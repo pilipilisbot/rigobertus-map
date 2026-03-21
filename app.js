@@ -637,6 +637,33 @@ function clearMarkers() {
   for (const marker of markers) marker.remove();
   markers = [];
   markerById.clear();
+  visibleMarkerIds = new Set();
+}
+
+function initMarkers() {
+  if (!map) return;
+  if (markerById.size) return;
+
+  for (const p of places) {
+    if (!Number.isFinite(p.lat) || !Number.isFinite(p.lng)) continue;
+
+    const popup = new maplibregl.Popup({ offset: 20 }).setDOMContent(createPopupNode(p));
+    const marker = new maplibregl.Marker({ color: markerColor(getPlaceStatus(p)) })
+      .setLngLat([p.lng, p.lat])
+      .setPopup(popup)
+      .addTo(map);
+
+    markers.push(marker);
+
+    const safeId = normalizePlaceId(p.id);
+    if (safeId) markerById.set(safeId, marker);
+  }
+}
+
+function setMarkerVisibility(marker, isVisible) {
+  const markerEl = marker.getElement();
+  if (!markerEl) return;
+  markerEl.style.display = isVisible ? '' : 'none';
 }
 
 function focusPlace(placeId, options = {}) {
@@ -645,7 +672,7 @@ function focusPlace(placeId, options = {}) {
   if (!safeId) return false;
 
   const marker = markerById.get(safeId);
-  if (!marker) {
+  if (!marker || !visibleMarkerIds.has(safeId)) {
     pendingPlaceId = safeId;
     return false;
   }
@@ -694,23 +721,21 @@ function initMap() {
 function renderMap(filtered) {
   if (!map) return;
 
-  clearMarkers();
+  initMarkers();
 
   const withCoords = filtered.filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lng));
-  if (!withCoords.length) return;
+  const nextVisibleIds = new Set(withCoords.map((p) => normalizePlaceId(p.id)).filter(Boolean));
 
-  for (const p of withCoords) {
-    const popup = new maplibregl.Popup({ offset: 20 }).setDOMContent(createPopupNode(p));
-    const marker = new maplibregl.Marker({ color: markerColor(getPlaceStatus(p)) })
-      .setLngLat([p.lng, p.lat])
-      .setPopup(popup)
-      .addTo(map);
-
-    markers.push(marker);
-
-    const safeId = normalizePlaceId(p.id);
-    if (safeId) markerById.set(safeId, marker);
+  for (const [id, marker] of markerById.entries()) {
+    setMarkerVisibility(marker, nextVisibleIds.has(id));
+    if (!nextVisibleIds.has(id)) {
+      const popup = marker.getPopup();
+      if (popup && popup.isOpen()) popup.remove();
+    }
   }
+
+  visibleMarkerIds = nextVisibleIds;
+  if (!withCoords.length) return;
 
   if (withCoords.length === 1) {
     map.easeTo({ center: [withCoords[0].lng, withCoords[0].lat], zoom: 14, duration: mapAnimationDuration(700) });
