@@ -22,8 +22,13 @@ let modalPhotos = [];
 let modalIndex = 0;
 let modalTriggerElement = null;
 let markerById = new Map();
+let visibleMarkerIds = new Set();
 let pendingPlaceId = null;
 let featuredPlaceId = null;
+let lastRenderSignature = '';
+let lastRenderDurationMs = 0;
+const SEARCH_DEBOUNCE_MS = 200;
+let searchDebounceTimer = null;
 
 function writeUrl(url, historyMode = 'replace') {
   const method = historyMode === 'push' ? 'pushState' : 'replaceState';
@@ -843,6 +848,8 @@ function renderMap(filtered) {
 }
 
 function render() {
+  const t0 = performance.now();
+
   const filtered = places
     .filter(matches)
     .sort((a, b) => {
@@ -854,11 +861,19 @@ function render() {
     });
 
   count.textContent = `${filtered.length} llocs`;
-  list.innerHTML = '';
-  filtered.forEach((p) => list.appendChild(card(p)));
+
+  const signature = filtered.map((p) => normalizePlaceId(p.id)).join('|');
+  if (signature !== lastRenderSignature) {
+    list.innerHTML = '';
+    filtered.forEach((p) => list.appendChild(card(p)));
+    lastRenderSignature = signature;
+  }
   syncSelectedCardState();
+
   renderFeaturedPlace();
   renderMap(filtered);
+
+  lastRenderDurationMs = performance.now() - t0;
 }
 
 async function loadPlaces() {
@@ -872,6 +887,8 @@ async function loadPlaces() {
   if (!Array.isArray(data)) throw new Error("places.json no té el format esperat (array)");
 
   places = data;
+  lastRenderSignature = '';
+  clearMarkers();
   pendingPlaceId = getPlaceParamFromUrl() || null;
   featuredPlaceId = pendingPlaceId;
   clearFilters();
@@ -984,8 +1001,11 @@ async function init() {
   });
 
   q.addEventListener('input', () => {
-    render();
-    syncFiltersToUrl('replace');
+    window.clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = window.setTimeout(() => {
+      render();
+      syncFiltersToUrl('replace');
+    }, SEARCH_DEBOUNCE_MS);
   });
   q.addEventListener('change', () => syncFiltersToUrl('push'));
 
