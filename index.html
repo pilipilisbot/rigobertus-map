@@ -99,9 +99,10 @@
       };
 
       const syncEmptyState = () => {
-        const zeroResults = /^0\s+llocs\b/i.test((count.textContent || '').trim()) || list.children.length === 0;
+        const countText = (count.textContent || '').trim();
+        const zeroResults = /^0\s+llocs\b/i.test(countText);
         const active = hasActiveFilters();
-        emptyState.hidden = !zeroResults;
+        emptyState.hidden = !(zeroResults && active);
         if (emptyClearFiltersBtn) emptyClearFiltersBtn.hidden = !active;
       };
 
