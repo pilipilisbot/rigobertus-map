@@ -83,6 +83,20 @@ select:focus-visible{
   100%{transform:scale(1)}
 }
 
+@media (prefers-reduced-motion: reduce){
+  html:focus-within{scroll-behavior:auto}
+
+  *, *::before, *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+
+  .card-highlight{animation:none}
+  .photo-btn:hover img{transform:none;opacity:1}
+}
+
 @media (max-width: 767px){
   body{padding:.75rem}
   .controls{position:sticky;top:0;z-index:10;background:#0b1020;padding:.6rem 0 .4rem;gap:.6rem}

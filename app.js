@@ -24,6 +24,14 @@ let markerById = new Map();
 let pendingPlaceId = null;
 let featuredPlaceId = null;
 
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function mapAnimationDuration(defaultDuration = 700) {
+  return prefersReducedMotion() ? 0 : defaultDuration;
+}
+
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
 }
@@ -62,7 +70,7 @@ function highlightPlaceCard(placeId, options = {}) {
   if (!target) return;
 
   if (scroll) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
   }
 
   target.classList.add('card-highlight');
@@ -629,7 +637,7 @@ function focusPlace(placeId, options = {}) {
 
   const lngLat = marker.getLngLat();
   if (map && lngLat) {
-    map.easeTo({ center: [lngLat.lng, lngLat.lat], zoom: Math.max(map.getZoom(), 14), duration: 700 });
+    map.easeTo({ center: [lngLat.lng, lngLat.lat], zoom: Math.max(map.getZoom(), 14), duration: mapAnimationDuration(700) });
   }
 
   if (openPopup && marker.getPopup()) {
@@ -690,15 +698,18 @@ function renderMap(filtered) {
   }
 
   if (withCoords.length === 1) {
-    map.easeTo({ center: [withCoords[0].lng, withCoords[0].lat], zoom: 14, duration: 700 });
+    map.easeTo({ center: [withCoords[0].lng, withCoords[0].lat], zoom: 14, duration: mapAnimationDuration(700) });
   } else {
     const bounds = new maplibregl.LngLatBounds();
     for (const p of withCoords) bounds.extend([p.lng, p.lat]);
-    map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 700 });
+    map.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: mapAnimationDuration(700) });
   }
 
   if (pendingPlaceId) {
-    setTimeout(() => focusPlace(pendingPlaceId, { openPopup: true, updateUrl: false }), 250);
+    setTimeout(
+      () => focusPlace(pendingPlaceId, { openPopup: true, updateUrl: false }),
+      prefersReducedMotion() ? 0 : 250,
+    );
   }
 }
 
