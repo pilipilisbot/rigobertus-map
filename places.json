@@ -94,14 +94,23 @@
       "sopar"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.969585699999996,2.8182047",
-    "notes": "Auto-resolt Places. Query: Teke-Tumateke Taco Bar Girona. Address: Carrer Narcís Blanch, 32, 17003 Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "status": "wishlist",
     "planned": true,
     "externalRating": 4.9,
     "externalReviewCount": 245,
     "rigobertusRating": null,
     "photos": [],
-    "placeId": "ChIJa5QtyrjnuhIR-dR7XM_5ev8"
+    "placeId": "ChIJa5QtyrjnuhIR-dR7XM_5ev8",
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Teke-Tumateke Taco Bar Girona",
+        "address": "Carrer Narcís Blanch, 32, 17003 Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Teke-Tumateke Taco Bar Girona. Address: Carrer Narcís Blanch, 32, 17003 Girona, Spain"
+      }
+    }
   },
   {
     "id": "restaurant-lescabetx",
@@ -114,7 +123,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9852701,2.8227466999999997",
-    "notes": "Auto-resolt Places. Query: Restaurant l'Escabetx Girona. Address: Carrer Anselm Clavé, 24, 17001 Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJiVDgZsHnuhIR_TJFHdLDtD0",
     "status": "visited",
     "externalRating": 4.8,
@@ -127,7 +136,16 @@
       "photos/escabetx/05.jpg",
       "photos/escabetx/06.jpg",
       "photos/escabetx/07.jpg"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Restaurant l'Escabetx Girona",
+        "address": "Carrer Anselm Clavé, 24, 17001 Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Restaurant l'Escabetx Girona. Address: Carrer Anselm Clavé, 24, 17001 Girona, Spain"
+      }
+    }
   },
   {
     "id": "ca-la-pilar",
@@ -140,7 +158,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=42.013901,2.827124",
-    "notes": "Validat amb Google Places: Carrer Pont Major, 124, 17840 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJTyjI_E_muhIRfD3F9IiIp4E",
     "status": "visited",
     "externalRating": 4.6,
@@ -148,7 +166,15 @@
     "rigobertusRating": null,
     "photos": [
       "photos/ca-la-pilar/01.jpg"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Pont Major, 124, 17840 Girona",
+        "rawNote": "Validat amb Google Places: Carrer Pont Major, 124, 17840 Girona"
+      }
+    }
   },
   {
     "id": "sao-restaurante",
@@ -161,12 +187,21 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9501724,3.0579001",
-    "notes": "Auto-resolt Places. Query: Sao Restaurante Girona. Address: Carrer Estret, 3, 17110 Fonteta, Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJ3WpsFOz_uhIR7O-kZfhlrpQ",
     "status": "wishlist",
     "planned": true,
     "externalRating": 4.9,
-    "externalReviewCount": 437
+    "externalReviewCount": 437,
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Sao Restaurante Girona",
+        "address": "Carrer Estret, 3, 17110 Fonteta, Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Sao Restaurante Girona. Address: Carrer Estret, 3, 17110 Fonteta, Girona, Spain"
+      }
+    }
   },
   {
     "id": "taj-bangla-girona",
@@ -179,13 +214,21 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9848348,2.8254074",
-    "notes": "Validat amb Google Places: Carrer de la Cort Reial, 6, 17004 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJN_xenefmuhIR1qmBt_A-RTk",
     "status": "visited",
     "externalRating": 4.4,
     "externalReviewCount": 918,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer de la Cort Reial, 6, 17004 Girona",
+        "rawNote": "Validat amb Google Places: Carrer de la Cort Reial, 6, 17004 Girona"
+      }
+    }
   },
   {
     "id": "monki-restaurant",
@@ -198,11 +241,20 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9752623,3.0007832999999997",
-    "notes": "Auto-resolt Places. Query: Monki Restaurant Girona. Address: Carrer Vilanova, 1, 17121 Monells, Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJ0ZgdBkb7uhIR_ujDwaAkdKI",
     "status": "visited",
     "externalRating": 4.6,
-    "externalReviewCount": 404
+    "externalReviewCount": 404,
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Monki Restaurant Girona",
+        "address": "Carrer Vilanova, 1, 17121 Monells, Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Monki Restaurant Girona. Address: Carrer Vilanova, 1, 17121 Monells, Girona, Spain"
+      }
+    }
   },
   {
     "id": "restaurant-mondo",
@@ -215,7 +267,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.959862099999995,3.0372413",
-    "notes": "Auto-resolt Places. Query: Restaurant Mondo La Bisbal d'Emporda. Address: Carrer Cavallers, 22, 17100 La Bisbal d'Empordà, Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJoy_4o0r5uhIRb2PPDaAPTY0",
     "status": "visited",
     "externalRating": 4.6,
@@ -226,7 +278,16 @@
       "photos/restaurant-mondo/03.jpg",
       "photos/restaurant-mondo/04.jpg",
       "photos/restaurant-mondo/05.jpg"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Restaurant Mondo La Bisbal d'Emporda",
+        "address": "Carrer Cavallers, 22, 17100 La Bisbal d'Empordà, Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Restaurant Mondo La Bisbal d'Emporda. Address: Carrer Cavallers, 22, 17100 La Bisbal d'Empordà, Girona, Spain"
+      }
+    }
   },
   {
     "id": "toc-de-vi",
@@ -239,11 +300,20 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=42.0840314,2.9871311",
-    "notes": "Auto-resolt Places. Query: Restaurant Toc de Vi Girona. Address: Plaça de l'Església, 17144 Colomers, Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJi7SGQcLxuhIRGWS213Hv9ok",
     "status": "visited",
     "externalRating": 4.9,
-    "externalReviewCount": 216
+    "externalReviewCount": 216,
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Restaurant Toc de Vi Girona",
+        "address": "Plaça de l'Església, 17144 Colomers, Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Restaurant Toc de Vi Girona. Address: Plaça de l'Església, 17144 Colomers, Girona, Spain"
+      }
+    }
   },
   {
     "id": "la-farinera-restaurant",
@@ -256,13 +326,21 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.981415899999995,2.8162645",
-    "notes": "Validat amb Google Places: Carrer de Santa Eugènia, 42, 17005 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJFeURF4HnuhIRsiiMs_mx7yI",
     "status": "visited",
     "externalRating": 4.8,
     "externalReviewCount": 164,
     "rigobertusRating": null,
-    "photos": []
+    "photos": [],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer de Santa Eugènia, 42, 17005 Girona",
+        "rawNote": "Validat amb Google Places: Carrer de Santa Eugènia, 42, 17005 Girona"
+      }
+    }
   },
   {
     "id": "birrot",
@@ -275,14 +353,23 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=42.0731537,3.0113057999999997",
-    "notes": "Auto-resolt Places. Query: Birrot Girona. Address: Carrer la Creu, 5, 17143 Jafre, Girona, Spain",
+    "notes": "Afegit recentment al mapa.",
     "placeId": "ChIJJZwyNNHwuhIRJEx38Rr9qX4",
     "status": "visited",
     "externalRating": 4.9,
     "externalReviewCount": 671,
     "photos": [
       "photos/birrot/01.jpg"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "auto-resolved",
+        "query": "Birrot Girona",
+        "address": "Carrer la Creu, 5, 17143 Jafre, Girona, Spain",
+        "rawNote": "Auto-resolt Places. Query: Birrot Girona. Address: Carrer la Creu, 5, 17143 Jafre, Girona, Spain"
+      }
+    }
   },
   {
     "id": "restaurant-cipresaia-girona",
@@ -295,13 +382,21 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9850323,2.8254912",
-    "notes": "Validat amb Google Places: Carrer Bonaventura Carreras i Peralta 5, 17004 Girona.",
+    "notes": "Pendent de visita.",
     "status": "visited",
     "externalRating": 4.5,
     "externalReviewCount": 568,
     "rigobertusRating": null,
     "photos": [],
-    "placeId": "ChIJeURx_6jnuhIRO7uc5fdnYKQ"
+    "placeId": "ChIJeURx_6jnuhIRO7uc5fdnYKQ",
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Bonaventura Carreras i Peralta 5, 17004 Girona.",
+        "rawNote": "Validat amb Google Places: Carrer Bonaventura Carreras i Peralta 5, 17004 Girona."
+      }
+    }
   },
   {
     "id": "txalaka-girona",
@@ -314,13 +409,21 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9857514,2.8201619",
-    "notes": "Validat amb Google Places: Carrer Bonastruc de Porta, 4, 17001 Girona.",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJw-4gXuDmuhIRmVb5srXRus4",
     "externalRating": 4.3,
     "externalReviewCount": 4029,
     "rigobertusRating": null,
     "status": "visited",
-    "photos": []
+    "photos": [],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Bonastruc de Porta, 4, 17001 Girona.",
+        "rawNote": "Validat amb Google Places: Carrer Bonastruc de Porta, 4, 17001 Girona."
+      }
+    }
   },
   {
     "id": "el-balco-girona",
@@ -330,7 +433,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.984601399999995,2.8225765999999997",
-    "notes": "Validat amb Google Places: Carrer de les Hortes, 16, 17001 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJNdiArODmuhIRiETeaJnFdyY",
     "status": "visited",
     "externalRating": 4.6,
@@ -339,7 +442,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer de les Hortes, 16, 17001 Girona",
+        "rawNote": "Validat amb Google Places: Carrer de les Hortes, 16, 17001 Girona"
+      }
+    }
   },
   {
     "id": "sinofos-girona",
@@ -349,7 +460,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.981946199999996,2.822825",
-    "notes": "Validat amb Google Places: Plaça de Catalunya, nº25, B, 17002 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJdXzcaojnuhIRkud9Igxmyj8",
     "status": "visited",
     "externalRating": 4.5,
@@ -358,7 +469,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Plaça de Catalunya, nº25, B, 17002 Girona",
+        "rawNote": "Validat amb Google Places: Plaça de Catalunya, nº25, B, 17002 Girona"
+      }
+    }
   },
   {
     "id": "safo-girona",
@@ -368,7 +487,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.9825869,2.8248078999999997",
-    "notes": "Validat amb Google Places: Carrer Nou del Teatre, 2, 17004 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJO89rcnbnuhIRElEXM_ayBL8",
     "status": "visited",
     "externalRating": 4.6,
@@ -377,7 +496,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Nou del Teatre, 2, 17004 Girona",
+        "rawNote": "Validat amb Google Places: Carrer Nou del Teatre, 2, 17004 Girona"
+      }
+    }
   },
   {
     "id": "pocavergonya-bistro-girona",
@@ -387,7 +514,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.9810437,2.8185625",
-    "notes": "Validat amb Google Places: Plaça Poeta Marquina, 1, 17002 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJiaNmp8TnuhIRNFikiMMJeMo",
     "status": "visited",
     "externalRating": 4.6,
@@ -398,7 +525,15 @@
     ],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Plaça Poeta Marquina, 1, 17002 Girona",
+        "rawNote": "Validat amb Google Places: Plaça Poeta Marquina, 1, 17002 Girona"
+      }
+    }
   },
   {
     "id": "a4mans-girona",
@@ -408,7 +543,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.9815051,2.8218128",
-    "notes": "Validat amb Google Places: Pça. Pompeu Fabra, 9, 17001 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJ0xakw0TnuhIRMkb_sqetKoE",
     "status": "visited",
     "externalRating": 4.6,
@@ -420,7 +555,15 @@
     ],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Pça. Pompeu Fabra, 9, 17001 Girona",
+        "rawNote": "Validat amb Google Places: Pça. Pompeu Fabra, 9, 17001 Girona"
+      }
+    }
   },
   {
     "id": "santino-corca",
@@ -430,7 +573,7 @@
     "city": "Corçà",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.988862,3.0167085",
-    "notes": "Validat amb Google Places: Carrer Major, 5, 17121 Corçà, Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJlS78G9j7uhIRpTN5l0hiFPM",
     "status": "visited",
     "externalRating": 4.5,
@@ -439,7 +582,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Major, 5, 17121 Corçà, Girona",
+        "rawNote": "Validat amb Google Places: Carrer Major, 5, 17121 Corçà, Girona"
+      }
+    }
   },
   {
     "id": "el-magatzem-de-fonteta",
@@ -449,7 +600,7 @@
     "city": "Fonteta",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.9508127,3.0568949",
-    "notes": "Validat amb Google Places: Carrer de l'Empordà, 10, 17110 Fonteta, Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJo7IUxJT_uhIRzWINEDZ8oQw",
     "status": "visited",
     "externalRating": 4.7,
@@ -458,7 +609,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer de l'Empordà, 10, 17110 Fonteta, Girona",
+        "rawNote": "Validat amb Google Places: Carrer de l'Empordà, 10, 17110 Fonteta, Girona"
+      }
+    }
   },
   {
     "id": "hiroshi-girona",
@@ -468,7 +627,7 @@
     "city": "Girona",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=41.9668527,2.8210702999999997",
-    "notes": "Validat amb Google Places: Pujada Creu de Palau, 19, 17003 Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJfdH7Ti7nuhIRTEOgBAxXT7Q",
     "status": "visited",
     "externalRating": 4.7,
@@ -477,7 +636,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Pujada Creu de Palau, 19, 17003 Girona",
+        "rawNote": "Validat amb Google Places: Pujada Creu de Palau, 19, 17003 Girona"
+      }
+    }
   },
   {
     "id": "nimu-celra",
@@ -487,7 +654,7 @@
     "city": "Celrà",
     "category": "restaurant",
     "mapsUrl": "https://maps.google.com/?q=42.025516599999996,2.8781214999999998",
-    "notes": "Validat amb Google Places: Carrer Major, 1, 17460 Celrà, Girona",
+    "notes": "Pendent de visita.",
     "placeId": "ChIJB8t25HnluhIRZGlCB354v0s",
     "status": "visited",
     "externalRating": 4.9,
@@ -496,7 +663,15 @@
     "photos": [],
     "tags": [
       "rigobertus"
-    ]
+    ],
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "address": "Carrer Major, 1, 17460 Celrà, Girona",
+        "rawNote": "Validat amb Google Places: Carrer Major, 1, 17460 Celrà, Girona"
+      }
+    }
   },
   {
     "id": "xiringuito-olivia",
@@ -510,7 +685,7 @@
       "platja"
     ],
     "mapsUrl": "https://maps.google.com/?q=42.1285459,3.1235872",
-    "notes": "Afegit via Google Places a petició del grup. Alias: Guingueta Olivia. Address: Platja del Rec, 17130 Sant Martí d'Empúries, Girona, Spain",
+    "notes": "Afegit a petició del grup.",
     "status": "visited",
     "visitedAt": "2026-03-17",
     "externalRating": 4.2,
@@ -518,7 +693,16 @@
     "rigobertusRating": null,
     "photos": [],
     "placeId": "ChIJISYvR_NfuhIRV6DEUwQONAY",
-    "website": "https://cutt.ly/Reserv_Olivia"
+    "website": "https://cutt.ly/Reserv_Olivia",
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "group-request",
+        "alias": "Guingueta Olivia",
+        "address": "Platja del Rec, 17130 Sant Martí d'Empúries, Girona, Spain",
+        "rawNote": "Afegit via Google Places a petició del grup. Alias: Guingueta Olivia. Address: Platja del Rec, 17130 Sant Martí d'Empúries, Girona, Spain"
+      }
+    }
   },
   {
     "id": "la-tabarra-girona-girona",

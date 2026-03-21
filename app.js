@@ -247,9 +247,20 @@ function markerColor(status) {
   return status === 'visited' ? '#22c55e' : '#f59e0b';
 }
 
+function getEditorialNotes(place) {
+  const raw = safeText(place?.notes, '').trim();
+  if (!raw) return '';
+
+  if (/^auto-resolt places\./i.test(raw)) return '';
+  if (/^validat amb google places:/i.test(raw)) return '';
+  if (/^afegit via google places\b/i.test(raw)) return '';
+
+  return raw;
+}
+
 function matches(p) {
   const text = (q.value || '').trim().toLowerCase();
-  const hay = [p.name, p.city, (p.tags || []).join(' '), p.notes || ''].join(' ').toLowerCase();
+  const hay = [p.name, p.city, (p.tags || []).join(' '), getEditorialNotes(p)].join(' ').toLowerCase();
   if (text && !hay.includes(text)) return false;
   if (city.value && p.city !== city.value) return false;
 
@@ -615,7 +626,7 @@ function card(p) {
 
   const notes = document.createElement('p');
   notes.className = 'card-notes card-section';
-  notes.textContent = safeText(p.notes, 'Notes: —');
+  notes.textContent = getEditorialNotes(p) || 'Notes: —';
   el.appendChild(notes);
 
   const tags = document.createElement('div');
