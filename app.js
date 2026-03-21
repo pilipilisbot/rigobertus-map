@@ -751,15 +751,18 @@ function initMarkers() {
   for (const p of places) {
     if (!Number.isFinite(p.lat) || !Number.isFinite(p.lng)) continue;
 
+    const safeId = normalizePlaceId(p.id);
     const popup = new maplibregl.Popup({ offset: 20 }).setDOMContent(createPopupNode(p));
+    if (safeId) {
+      popup.on('open', () => closeOpenPopups(safeId));
+    }
+
     const marker = new maplibregl.Marker({ color: markerColor(getPlaceStatus(p)) })
       .setLngLat([p.lng, p.lat])
       .setPopup(popup)
       .addTo(map);
 
     markers.push(marker);
-
-    const safeId = normalizePlaceId(p.id);
     if (safeId) markerById.set(safeId, marker);
   }
 }
@@ -768,6 +771,14 @@ function setMarkerVisibility(marker, isVisible) {
   const markerEl = marker.getElement();
   if (!markerEl) return;
   markerEl.style.display = isVisible ? '' : 'none';
+}
+
+function closeOpenPopups(exceptId = null) {
+  for (const [id, marker] of markerById.entries()) {
+    if (exceptId && id === exceptId) continue;
+    const popup = marker.getPopup();
+    if (popup && popup.isOpen()) popup.remove();
+  }
 }
 
 function focusPlace(placeId, options = {}) {
@@ -787,7 +798,7 @@ function focusPlace(placeId, options = {}) {
   }
 
   if (openPopup && marker.getPopup()) {
-    marker.togglePopup();
+    closeOpenPopups(safeId);
     if (!marker.getPopup().isOpen()) marker.togglePopup();
   }
 
