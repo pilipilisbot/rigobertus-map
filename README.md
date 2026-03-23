@@ -125,6 +125,11 @@ Si el `website-id` és placeholder, els events queden en no-op i la web funciona
 - Mantén igualment política de privacitat i avís legal.
 - No enviïs dades personals als events.
 
+## Structured data (SEO)
+
+- El projecte publica JSON-LD tipus `WebSite` a `index.html`.
+- L’`ItemList` queda pendent per una fase posterior, quan definim millor una estratègia de llistes/pàgines indexables per evitar marcatge poc estable.
+
 ## Publicació
 
 La workflow `.github/workflows/pages.yml` desplega automàticament a GitHub Pages quan fas push a `main`.
