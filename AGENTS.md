@@ -78,7 +78,22 @@ Prioritats:
 
 ---
 
-## 6) Analítica (Umami)
+## 6) SEO tècnic (quan canviï contingut o URLs)
+
+Quan es modifiqui estructura de pàgines, rutes o contingut indexable:
+
+- Actualitzar `sitemap.xml` (afegir/retirar URLs i `lastmod` quan toqui)
+- Revisar `robots.txt` (que el sitemap publicat sigui correcte)
+- Mantenir `canonical` coherent a cada pàgina indexable
+- Evitar URLs duplicades pel mateix contingut
+- Si hi ha canvis rellevants de contingut, revisar també `title` i `meta description`
+
+Checklist mínim en PRs que toquin SEO:
+- [ ] sitemap actualitzat (si aplica)
+- [ ] canonical correcte
+- [ ] meta tags principals coherents
+
+## 7) Analítica (Umami)
 
 Principi clau: quan facis canvis de producte/UI, pensa també en com mesurar-ne l'impacte.
 
@@ -108,7 +123,7 @@ Events actuals:
 
 ---
 
-## 7) Flux de treball per agents
+## 8) Flux de treball per agents
 
 1. Crear branca `fix/issue-<num>` o `docs/...` segons el cas.
 2. Fer canvis mínims i enfocats al scope.
@@ -121,7 +136,7 @@ Events actuals:
 
 ---
 
-## 8) Estil de canvis esperat
+## 9) Estil de canvis esperat
 
 - Evitar refactors grans no demanats.
 - Evitar barrejar múltiples problemes en una sola PR.
@@ -130,7 +145,7 @@ Events actuals:
 
 ---
 
-## 9) Pendent conegut (a data d'ara)
+## 10) Pendent conegut (a data d'ara)
 
 Issues obertes encara pendents:
 - #21 (estratègia CDN/runtime)
