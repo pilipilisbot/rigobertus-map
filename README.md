@@ -19,6 +19,7 @@ Si treballes amb agents AI en aquest repo, consulta primer `AGENTS.md` per conve
 - Enllaços compartibles de fitxa (`?place=<id>`) des de la fitxa i el popup del mapa, amb destacat visual i bloc resum sobre el mapa
 - Estat de valoració clar: pendent visita, pendent valoració Rigobertus o valoració publicada
 - Els canvis es fan via commit/PR
+- Analítica cookieless amb Umami (opcional, configurable)
 
 ## Esquema mínim (`places.json`)
 
@@ -90,6 +91,39 @@ A CI també s'executa automàticament a cada PR amb `.github/workflows/validate-
 
 - Guia editorial + checklist per noves entrades: [`docs/editorial-governance.md`](docs/editorial-governance.md)
 - Plantilla de PR reutilitzable per canvis de dades: [`.github/pull_request_template.md`](.github/pull_request_template.md)
+
+## Analítica (Umami, cookieless)
+
+Aquest projecte incorpora suport per Umami Cloud (sense cookies):
+
+1. Crea web a Umami i copia el `website-id`.
+2. A `index.html`, substitueix:
+   - `data-website-id="REPLACE_WITH_UMAMI_WEBSITE_ID"`
+3. Publica a GitHub Pages.
+
+Si el `website-id` és placeholder, els events queden en no-op i la web funciona igual.
+
+### Events trackejats
+
+- `places_loaded`
+- `places_load_error`
+- `search_used`
+- `filter_city_changed`
+- `filter_rating_changed`
+- `filter_status_changed`
+- `place_focus`
+- `place_share_link_click`
+- `maps_link_click`
+- `photo_modal_open`
+- `photo_modal_navigate`
+- `photo_modal_close`
+- `retry_load_places`
+
+### Nota legal (orientativa)
+
+- Sense cookies d’analítica ⇒ habitualment sense banner de cookies.
+- Mantén igualment política de privacitat i avís legal.
+- No enviïs dades personals als events.
 
 ## Publicació
 

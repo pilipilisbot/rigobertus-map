@@ -1,4 +1,4 @@
-# AI_AGENTS.md — Instruccions per agents AI (rigobertus-map)
+# AGENTS.md — Instruccions per agents AI (rigobertus-map)
 
 Aquest document resumeix criteris i decisions pràctiques del repo perquè qualsevol agent (Codex/Claude/GPT/etc.) treballi amb qualitat i sense regressions.
 
@@ -78,7 +78,37 @@ Prioritats:
 
 ---
 
-## 6) Flux de treball per agents
+## 6) Analítica (Umami)
+
+Principi clau: quan facis canvis de producte/UI, pensa també en com mesurar-ne l'impacte.
+
+- Eina triada: **Umami Cloud** (cookieless)
+- Tracking via `trackEvent(...)` a `app.js`
+
+Condicions no negociables:
+- Sense cookies d’analítica
+- Sense fingerprinting
+- Sense dades personals en events
+- Payloads curts, agregables i no identificadors
+
+Events actuals:
+- `places_loaded`
+- `places_load_error`
+- `search_used`
+- `filter_city_changed`
+- `filter_rating_changed`
+- `filter_status_changed`
+- `place_focus`
+- `place_share_link_click`
+- `maps_link_click`
+- `photo_modal_open`
+- `photo_modal_navigate`
+- `photo_modal_close`
+- `retry_load_places`
+
+---
+
+## 7) Flux de treball per agents
 
 1. Crear branca `fix/issue-<num>` o `docs/...` segons el cas.
 2. Fer canvis mínims i enfocats al scope.
@@ -91,7 +121,7 @@ Prioritats:
 
 ---
 
-## 7) Estil de canvis esperat
+## 8) Estil de canvis esperat
 
 - Evitar refactors grans no demanats.
 - Evitar barrejar múltiples problemes en una sola PR.
@@ -100,7 +130,7 @@ Prioritats:
 
 ---
 
-## 8) Pendent conegut (a data d'ara)
+## 9) Pendent conegut (a data d'ara)
 
 Issues obertes encara pendents:
 - #21 (estratègia CDN/runtime)

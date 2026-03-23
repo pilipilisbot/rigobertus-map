@@ -91,6 +91,28 @@ function mapAnimationDuration(defaultDuration = 700) {
   return prefersReducedMotion() ? 0 : defaultDuration;
 }
 
+function isUmamiEnabled() {
+  const script = document.querySelector('script[data-website-id]');
+  if (!script) return false;
+  const websiteId = (script.getAttribute('data-website-id') || '').trim();
+  return Boolean(websiteId && websiteId !== 'REPLACE_WITH_UMAMI_WEBSITE_ID');
+}
+
+function trackEvent(name, payload = undefined) {
+  if (!isUmamiEnabled()) return;
+  if (!window.umami || typeof window.umami.track !== 'function') return;
+
+  try {
+    if (payload && typeof payload === 'object') {
+      window.umami.track(name, payload);
+    } else {
+      window.umami.track(name);
+    }
+  } catch (_) {
+    // noop
+  }
+}
+
 function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ca'));
 }
@@ -301,6 +323,10 @@ function buildMapsLink(url, label = 'Obrir a Google Maps ↗') {
     link.removeAttribute('target');
     link.removeAttribute('rel');
     link.textContent = 'Enllaç no disponible';
+  } else {
+    link.addEventListener('click', () => {
+      trackEvent('maps_link_click', { label });
+    });
   }
 
   return link;
@@ -321,6 +347,7 @@ function buildPlaceLink(placeId, label = 'Veure fitxa') {
     event.preventDefault();
     const id = normalizePlaceId(placeId);
     if (!id) return;
+    trackEvent('place_share_link_click', { placeId: id });
     updatePlaceInUrl(id, 'push');
     focusPlace(id, { openPopup: true, updateUrl: false });
   });
@@ -506,12 +533,18 @@ function openImageModal(items, startIndex = 0, triggerElement = null) {
   imageModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   if (imageModalClose) imageModalClose.focus({ preventScroll: true });
+  trackEvent('photo_modal_open', { index: modalIndex + 1, total: modalPhotos.length });
 }
 
 function stepImageModal(delta) {
   if (!modalPhotos.length) return;
   modalIndex = (modalIndex + delta + modalPhotos.length) % modalPhotos.length;
   renderModalPhoto();
+  trackEvent('photo_modal_navigate', {
+    direction: delta > 0 ? 'next' : 'prev',
+    index: modalIndex + 1,
+    total: modalPhotos.length,
+  });
 }
 
 function closeImageModal() {
@@ -528,6 +561,7 @@ function closeImageModal() {
     modalTriggerElement.focus({ preventScroll: true });
   }
   modalTriggerElement = null;
+  trackEvent('photo_modal_close');
 }
 
 function buildPhotos(p) {
@@ -814,6 +848,11 @@ function focusPlace(placeId, options = {}) {
   const place = places.find((item) => normalizePlaceId(item.id) === safeId);
   if (place) {
     setStatus(`Mostrant fitxa compartida: ${safeText(place.name, 'lloc')}`);
+    trackEvent('place_focus', {
+      placeId: safeId,
+      city: safeText(place.city, ''),
+      status: getPlaceStatus(place),
+    });
   }
 
   pendingPlaceId = null;
@@ -918,6 +957,7 @@ async function loadPlaces() {
   restoreFiltersFromUrl();
   render();
   setStatus('');
+  trackEvent('places_loaded', { total: places.length });
 }
 
 async function loadBuildInfo() {
@@ -1025,19 +1065,36 @@ async function init() {
   q.addEventListener('input', () => {
     window.clearTimeout(searchDebounceTimer);
     searchDebounceTimer = window.setTimeout(() => {
+      const term = (q.value || '').trim();
+      if (term.length >= 2) {
+        trackEvent('search_used', { length: term.length });
+      }
       render();
       syncFiltersToUrl('replace');
     }, SEARCH_DEBOUNCE_MS);
   });
   q.addEventListener('change', () => syncFiltersToUrl('push'));
 
-  [city, minRating, statusFilter].forEach((el) => {
-    el.addEventListener('change', () => {
-      render();
-      syncFiltersToUrl('push');
-    });
+  city.addEventListener('change', () => {
+    trackEvent('filter_city_changed', { city: city.value || 'all' });
+    render();
+    syncFiltersToUrl('push');
   });
+
+  minRating.addEventListener('change', () => {
+    trackEvent('filter_rating_changed', { minRating: minRating.value || 'any' });
+    render();
+    syncFiltersToUrl('push');
+  });
+
+  statusFilter.addEventListener('change', () => {
+    trackEvent('filter_status_changed', { status: statusFilter.value || 'all' });
+    render();
+    syncFiltersToUrl('push');
+  });
+
   retry.addEventListener('click', () => {
+    trackEvent('retry_load_places');
     loadPlaces().catch((error) => {
       setStatus(error.message || 'Error carregant les dades.', 'error');
       retry.hidden = false;
@@ -1053,6 +1110,7 @@ async function init() {
     count.textContent = '0 llocs';
     setStatus(error.message || 'Error carregant les dades.', 'error');
     retry.hidden = false;
+    trackEvent('places_load_error', { message: safeText(error?.message, 'unknown_error') });
   }
 }
 
