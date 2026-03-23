@@ -23,13 +23,13 @@
 </head>
 <body>
   <header>
-    <h1>Rigobertus Map</h1>
-    <p>Mapa de restaurants recomanats a Girona, amb filtres per ciutat, valoració i estat (per anar o visitats).</p>
+    <h1>Restaurants recomanats a Girona | Rigobertus Map</h1>
+    <p>Descobreix restaurants a Girona amb mapa interactiu i filtres per nom, ciutat, valoració i estat (per anar o visitats).</p>
   </header>
 
   <section class="controls" aria-label="Filtres de cerca">
-    <label class="sr-only" for="q">Cerca per text</label>
-    <input id="q" type="search" placeholder="Cerca per nom, ciutat, tag..." autocomplete="off" />
+    <label class="sr-only" for="q">Cerca restaurants per nom, ciutat o tipus</label>
+    <input id="q" type="search" placeholder="Cerca restaurants per nom, ciutat o tipus..." autocomplete="off" />
 
     <label class="sr-only" for="city">Filtra per ciutat</label>
     <select id="city"><option value="">Totes les ciutats</option></select>
@@ -61,8 +61,8 @@
     <p id="status" role="status" aria-live="polite"></p>
     <p id="count" aria-live="polite"></p>
     <section id="emptyState" class="empty-state" hidden role="status" aria-live="polite" aria-atomic="true">
-      <h2>No hem trobat llocs amb aquests filtres</h2>
-      <p>Prova de baixar la valoració mínima, canviar la ciutat o netejar la cerca.</p>
+      <h2>No hem trobat restaurants amb aquests filtres</h2>
+      <p>Prova una altra ciutat, baixa la valoració mínima o neteja la cerca per veure més opcions a Girona.</p>
       <button id="emptyClearFiltersBtn" class="clear-filters" type="button">Netejar filtres</button>
     </section>
     <section id="featuredPlace" class="featured-place" hidden aria-live="polite"></section>
