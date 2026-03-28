@@ -792,5 +792,22 @@
     "lng": 2.8632119,
     "externalRating": 4.3,
     "externalReviewCount": 791
+  },
+  {
+    "id": "octopus-girona-girona",
+    "name": "Octopus | Girona",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9765522,2.8206187",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJIX_79SfnuhIRqVh25VHE7oA",
+    "lat": 41.9765522,
+    "lng": 2.8206187,
+    "externalRating": 4.6,
+    "externalReviewCount": 1133
   }
 ]
