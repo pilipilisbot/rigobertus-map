@@ -809,5 +809,22 @@
     "lng": 2.8206187,
     "externalRating": 4.6,
     "externalReviewCount": 1133
+  },
+  {
+    "id": "octopus-pompeu-fabra-girona",
+    "name": "Octopus Pompeu Fabra",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9813768,2.8226969",
+    "status": "pending",
+    "photos": [],
+    "placeId": "ChIJFfAFbwnnuhIRgNSltMaJ0O4",
+    "lat": 41.9813768,
+    "lng": 2.8226969,
+    "externalRating": 4.4,
+    "externalReviewCount": 639
   }
 ]
