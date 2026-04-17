@@ -94,13 +94,15 @@
       "tacos"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.969585699999996,2.8182047",
-    "notes": "Afegit recentment al mapa.",
+    "notes": "Visitat per Rigobertus. A la foto hi surten quatre tacos: dos de gambes amb pebrot verd, ceba i salsa cremosa; un de pork belly amb ceba encurtida; i un cruixent amb pico de gallo i salsa.",
     "status": "visited",
-    "planned": true,
+    "planned": false,
     "externalRating": 4.9,
     "externalReviewCount": 266,
     "rigobertusRating": null,
-    "photos": [],
+    "photos": [
+      "91ce6d6f-f51c-4a82-bdf9-f0b54e9b4cb5.jpg"
+    ],
     "placeId": "ChIJa5QtyrjnuhIR-dR7XM_5ev8",
     "sourceMeta": {
       "import": {
