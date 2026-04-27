@@ -807,7 +807,7 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9765522,2.8206187",
-    "status": "pending",
+    "status": "wishlist",
     "photos": [],
     "placeId": "ChIJIX_79SfnuhIRqVh25VHE7oA",
     "lat": 41.9765522,
@@ -824,12 +824,31 @@
       "rigobertus"
     ],
     "mapsUrl": "https://maps.google.com/?q=41.9813768,2.8226969",
-    "status": "pending",
+    "status": "wishlist",
     "photos": [],
     "placeId": "ChIJFfAFbwnnuhIRgNSltMaJ0O4",
     "lat": 41.9813768,
     "lng": 2.8226969,
     "externalRating": 4.4,
     "externalReviewCount": 639
+  },
+  {
+    "id": "restaurant-hoyuna-girona",
+    "name": "Restaurant HOYUNA",
+    "city": "Girona",
+    "category": "restaurant",
+    "tags": [
+      "asian",
+      "girona",
+      "pending"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=41.9827365,2.8241270999999997",
+    "status": "wishlist",
+    "photos": [],
+    "placeId": "ChIJG_iLhrznuhIR-moJUzoobsI",
+    "lat": 41.9827365,
+    "lng": 2.8241270999999997,
+    "externalRating": 4.7,
+    "externalReviewCount": 19
   }
 ]
