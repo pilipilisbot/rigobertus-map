@@ -850,5 +850,34 @@
     "lng": 2.8241270999999997,
     "externalRating": 4.7,
     "externalReviewCount": 19
+  },
+  {
+    "id": "el-remanso-lescala",
+    "name": "El Remanso - cuina a les brases",
+    "city": "L'Escala",
+    "category": "restaurant",
+    "tags": [
+      "brasa",
+      "lescala",
+      "rigobertus"
+    ],
+    "mapsUrl": "https://maps.google.com/?q=42.1265816,3.1346225999999997",
+    "status": "wishlist",
+    "photos": [],
+    "placeId": "ChIJYcb9qJJfuhIRv6fMtJTePBI",
+    "website": "https://www.elremansolescala.com/es/",
+    "lat": 42.1265816,
+    "lng": 3.1346225999999997,
+    "externalRating": 4.8,
+    "externalReviewCount": 440,
+    "sourceMeta": {
+      "import": {
+        "provider": "google-places",
+        "method": "validated",
+        "query": "El Remanso restaurant L'Escala",
+        "address": "Passeig Dr. Jesús Maria Isern, 10, 17130 L'Escala, Girona, Spain",
+        "rawNote": "Validat amb Google Places: Passeig Dr. Jesús Maria Isern, 10, 17130 L'Escala, Girona, Spain"
+      }
+    }
   }
 ]
